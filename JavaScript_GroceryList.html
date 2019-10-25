@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <body>
+    <script language="javascript" type="text/javascript">
+      <!--
+	  // Set scales to 0
+	   var itemCount = 0
+	   var subTotal = 0
+	   var itemsTotal = 0
+	   
+	   document.write("<h1>Grocery List</h1>");
+	   
+	   // User input
+	   var itemName = prompt("Enter an item name or type DONE to exit");
+		while (itemName != "DONE") {
+			lineCreate(itemName)
+			var itemName = prompt("Enter an item name or type DONE to exit")
+			document.write("<br />")
+			}
+			
+		// Creates a function to handle the line printout
+		function lineCreate(itemName) {
+			itemPrice = Number(prompt("Enter an item price:"))
+			if (itemPrice > 10) {
+				itemCount++
+				itemsTotal++
+				subTotal = subTotal + itemPrice
+				document.write("Item " + itemCount + ": " + itemName + ", $" + itemPrice + "  *")
+				// keep track with console
+				console.log("Item count is " + itemCount)
+				console.log("Subtotal is " + subTotal)
+			} else if (itemPrice > 0) {
+				itemCount++
+				itemsTotal++
+				subTotal = subTotal + itemPrice
+				document.write("Item " + itemCount + ": " + itemName + ", $" + itemPrice)
+				// keep track with console
+				console.log("Item count is " + itemCount)
+				console.log("Subtotal is " + subTotal)
+				// catch-22 for invalid data
+			} else {
+				alert("Item price is invalid, deleting this entry!")
+			}
+		}
+		// Output the item totals and subtotal
+		document.write("<h1>Summary</h1>");
+		document.write("You had a total of " + itemCount + " items.");
+		document.write("<br />Your subtotal is: $" + subTotal);
+		
+      //-->
+    </script>
+  </body>
+</html>
