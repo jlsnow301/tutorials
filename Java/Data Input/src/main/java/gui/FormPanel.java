@@ -10,7 +10,6 @@ import java.awt.*;
 import javax.swing.border.Border;
 import java.awt.event.*;
 
-
 /**
  *
  * @author jerm
@@ -28,11 +27,11 @@ public class FormPanel extends JPanel {
     private JCheckBox citizenCheck;
     private JTextField taxField;
     private JLabel taxLabel;
-    
     private JRadioButton maleRadio;
     private JRadioButton femaleRadio;
     private ButtonGroup genderGroup;
-            
+    
+    /////////////////////////////////////////////////////////////////
     public FormPanel(){
         Dimension dim = getPreferredSize();
         dim.width = 250;
@@ -54,17 +53,15 @@ public class FormPanel extends JPanel {
         
         nameLabel.setDisplayedMnemonic(KeyEvent.VK_N);
         nameLabel.setLabelFor(nameField);
+        
         occupationLabel.setDisplayedMnemonic(KeyEvent.VK_O);
         occupationLabel.setLabelFor(occupationField);
         
         maleRadio = new JRadioButton("Male");
         femaleRadio = new JRadioButton("Female");
-        
         maleRadio.setActionCommand("male");
         femaleRadio.setActionCommand("female");
-        
         genderGroup = new ButtonGroup();
-        
         maleRadio.setSelected(true);
         
         // Set up gender radios
@@ -75,12 +72,10 @@ public class FormPanel extends JPanel {
         taxLabel.setEnabled(false);
         taxField.setEnabled(false);
         
-        citizenCheck.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                boolean isTicked = citizenCheck.isSelected();
-                taxLabel.setEnabled(isTicked);
-                taxField.setEnabled(isTicked);
-            }
+        citizenCheck.addActionListener((ActionEvent arg0) -> {
+            boolean isTicked = citizenCheck.isSelected();
+            taxLabel.setEnabled(isTicked);
+            taxField.setEnabled(isTicked);
         });
         
         // Set up the list box
@@ -102,25 +97,20 @@ public class FormPanel extends JPanel {
         empCombo.setSelectedIndex(0);
         empCombo.setEditable(true);
        
-        okBtn.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                String name = nameField.getText();
-                String occupation = occupationField.getText();
-                AgeCategory ageCat = (AgeCategory) ageList.getSelectedValue();
-                String empCat = (String)empCombo.getSelectedItem();
-                String taxId = taxField.getText();
-                boolean usCitizen = citizenCheck.isSelected();
-                
-                String gender = genderGroup.getSelection().getActionCommand();
-                
-                System.out.println(empCat);
-                
-                FormEvent ev = new FormEvent(this, name, occupation, 
-                        ageCat.getId(), empCat, taxId, usCitizen, gender);
-            
-                if(formListener != null){
-                    formListener.formEventOccurred(ev);
-                }
+        okBtn.addActionListener((ActionEvent arg0) -> {
+            String name = nameField.getText();
+            String occupation = occupationField.getText();
+            AgeCategory ageCat = (AgeCategory) ageList.getSelectedValue();
+            String empCat = (String) empCombo.getSelectedItem();
+            String taxId = taxField.getText();
+            boolean usCitizen = citizenCheck.isSelected();
+            String gender = genderGroup.getSelection().getActionCommand();
+                                
+            FormEvent ev = new FormEvent(this, name, occupation, 
+                ageCat.getId(), empCat, taxId, usCitizen, gender);
+
+            if(formListener != null){
+                formListener.formEventOccurred(ev);
             }
         });
     
@@ -132,6 +122,7 @@ public class FormPanel extends JPanel {
         layoutComponents();
     }
     
+    /////////////////////////////////////////////////////////////////
     public void layoutComponents(){
         
         setLayout(new GridBagLayout());
@@ -282,6 +273,7 @@ public class FormPanel extends JPanel {
     }
 }
 
+/////////////////////////////////////////////////////////////////
 class AgeCategory {
     private String text;
     private int id;

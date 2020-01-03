@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.util.List;
 import model.Person;
 import java.awt.event.*;
+import model.PersonTableModel;
 
 /**
  *
@@ -31,7 +32,12 @@ public class TablePanel extends JPanel {
         JMenuItem removeItem = new JMenuItem("Delete Row");
         popup.add(removeItem);
         
+        setLayout(new BorderLayout());
+        
+        add(new JScrollPane(table), BorderLayout.CENTER);
+        
         table.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e){
                 
                 int row = table.rowAtPoint(e.getPoint());
@@ -43,19 +49,15 @@ public class TablePanel extends JPanel {
         });
         
         removeItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0){
+            @Override
+            public void actionPerformed(ActionEvent ev) {
                 int row = table.getSelectedRow();
-                
                 if(personTableListener != null){
                     personTableListener.rowDeleted(row);
                     tableModel.fireTableRowsDeleted(row, row);
                 }
-                
             }
         });
-        setLayout(new BorderLayout());
-        
-        add(new JScrollPane(table), BorderLayout.CENTER);
     }
     
     public void setData(List<Person> db) {
@@ -64,6 +66,7 @@ public class TablePanel extends JPanel {
     
     public void refresh(){
         tableModel.fireTableDataChanged();
+        System.out.println("yo");
     }
     
     public void setPersonTableListener(PersonTableListener listener){

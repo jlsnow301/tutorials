@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
     private Controller controller;
     private TablePanel tablePanel;
     
+    /////////////////////////////////////////////////////////////////////
     public MainFrame(){
         super("Data Input");
         
@@ -34,31 +35,23 @@ public class MainFrame extends JFrame {
         formPanel = new FormPanel();
         tablePanel = new TablePanel();
         controller = new Controller();
-        
-        tablePanel.setData(controller.getPeople());
-        
-        tablePanel.setPersonTableListener(new PersonTableListener(){
-            public void rowDeleted(int row){
-                System.out.println(row);
-            }
-        });
-        
         fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new PersonFileFilter());
-        
         setJMenuBar(createMenuBar());
-                
-        toolbar.setStringListener(new StringListener(){
-            public void textDisplay(String text){
-                textPanel.appendText(text);
-            }
+            
+        tablePanel.setData(controller.getPeople());
+        
+        tablePanel.setPersonTableListener((int row) -> {
+            System.out.println(row);
+        });
+
+        toolbar.setStringListener((String text) -> {
+            textPanel.appendText(text);
         });
         
-        formPanel.setFormListener(new FormListener(){
-           public void formEventOccurred(FormEvent ev){
-               controller.addPerson(ev);
-               tablePanel.refresh();
-           } 
+        formPanel.setFormListener((FormEvent ev) -> {
+            controller.addPerson(ev);
+            tablePanel.refresh(); 
         });
         
         add(formPanel, BorderLayout.WEST);
@@ -72,7 +65,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         
     }
-    
+    //////////////////////////////////////////////////////////////////
     private JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
 
@@ -98,12 +91,9 @@ public class MainFrame extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(viewMenu);
         
-        showFormItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev){
-                JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem)ev.getSource();
-                
-                formPanel.setVisible(menuItem.isSelected());
-            }
+        showFormItem.addActionListener((ActionEvent ev) -> {
+            JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem)ev.getSource();
+            formPanel.setVisible(menuItem.isSelected());
         }); 
         
         fileMenu.setMnemonic(KeyEvent.VK_F);
@@ -114,47 +104,40 @@ public class MainFrame extends JFrame {
                 ActionEvent.CTRL_MASK));
         
         // File handlers
-        importDataItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                if(fileChooser.showOpenDialog(MainFrame.this) == 
-                        JFileChooser.APPROVE_OPTION) {
-                    try {
-                        controller.loadFromFile(fileChooser.getSelectedFile());
-                        tablePanel.refresh();
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(MainFrame.this, 
-                                "Failed to load data.", "Error", 
-                                JOptionPane.ERROR_MESSAGE);
-                    }
+        importDataItem.addActionListener((ActionEvent e) -> {
+            if(fileChooser.showOpenDialog(MainFrame.this) ==
+                    JFileChooser.APPROVE_OPTION) {
+                try {
+                    controller.loadFromFile(fileChooser.getSelectedFile());
+                    tablePanel.refresh();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Failed to load data.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
         
-        exportDataItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                if(fileChooser.showSaveDialog(MainFrame.this) == 
-                        JFileChooser.APPROVE_OPTION) {
-                    try {
-                        controller.saveToFile(fileChooser.getSelectedFile());
-                        tablePanel.refresh();
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(MainFrame.this, 
-                                "Failed to save data.", "Error", 
-                                JOptionPane.ERROR_MESSAGE);
-                    }
+        exportDataItem.addActionListener((ActionEvent e) -> {
+            if(fileChooser.showSaveDialog(MainFrame.this) ==
+                    JFileChooser.APPROVE_OPTION) {
+                try {
+                    controller.saveToFile(fileChooser.getSelectedFile());
+                    tablePanel.refresh();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Failed to save data.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
         
-        exitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0){
-                
-                int action = JOptionPane.showConfirmDialog(MainFrame.this, 
-                        "Confirm exit:", "Caution", 
-                        JOptionPane.OK_CANCEL_OPTION);
-                if(action == JOptionPane.OK_OPTION)
-                    System.exit(0);
-            }
+        exitItem.addActionListener((ActionEvent arg0) -> {
+            int action = JOptionPane.showConfirmDialog(MainFrame.this,
+                    "Confirm exit:", "Caution",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if(action == JOptionPane.OK_OPTION)
+                System.exit(0);
         });
                 
         return menuBar;

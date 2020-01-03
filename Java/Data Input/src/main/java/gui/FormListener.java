@@ -11,5 +11,5 @@ import java.util.EventListener;
  * @author jerm
  */
 public interface FormListener extends EventListener {
-    public void formEventOccurred(FormEvent e);
+    public void formEventOccurred(FormEvent ev);
 }

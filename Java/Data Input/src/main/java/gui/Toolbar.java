@@ -15,23 +15,23 @@ import java.awt.event.*;
  * @author jerm
  */
 public class Toolbar extends JPanel implements ActionListener {
-    private JButton helloButton;
-    private JButton goodbyeButton;
+    private JButton firstButton;
+    private JButton secondButton;
     
     private StringListener textListener;
     
     public Toolbar(){
         setBorder(BorderFactory.createEtchedBorder());
-        helloButton = new JButton("Hello");
-        goodbyeButton = new JButton("Goodbye");
+        firstButton = new JButton("Button1");
+        secondButton = new JButton("Button2");
         
-        helloButton.addActionListener(this);
-        goodbyeButton.addActionListener(this);
+        firstButton.addActionListener(this);
+        secondButton.addActionListener(this);
         
         setLayout(new FlowLayout(FlowLayout.LEFT));
         
-        add(helloButton);
-        add(goodbyeButton);
+        add(firstButton);
+        add(secondButton);
     }
     
     public void setStringListener(StringListener listener){
@@ -39,12 +39,12 @@ public class Toolbar extends JPanel implements ActionListener {
     }
     
     @Override
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         JButton clicked = (JButton) e.getSource();
         
-        if(clicked == helloButton && textListener != null)
+        if(clicked == firstButton && textListener != null)
             textListener.textDisplay("Hello\n");
-        else if(clicked == goodbyeButton && textListener != null)
+        else if(clicked == secondButton && textListener != null)
             textListener.textDisplay("Goodbye\n");
     }
 }
