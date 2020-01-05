@@ -26,70 +26,69 @@ public class Controller {
         return db.getPeople();
     }
 
-    public void removePerson(int index){
+    public void removePerson(final int index) {
         db.removePerson(index);
     }
-    public void addPerson(FormEvent ev){
-        String name = ev.getName();
-        String occupation = ev.getOccupation();
-        int ageCatId = ev.getAgeCategory();
-        String empCatId = ev.getEmploymentCategory();
-        boolean isUs = ev.isUsCitizen();
-        String taxId = ev.getTaxId();
-        String gender = ev.getGender();
-        
+
+    public void addPerson(final FormEvent ev) {
+        final String name = ev.getName();
+        final String occupation = ev.getOccupation();
+        final int ageCatId = ev.getAgeCategory();
+        final String empCatId = ev.getEmploymentCategory();
+        final boolean isUs = ev.isUsCitizen();
+        final String taxId = ev.getTaxId();
+        final String gender = ev.getGender();
+
         AgeCategory ageCategory = null;
-        
-        switch(ageCatId) {
-            case 0:
-                ageCategory = AgeCategory.child;
-                break;
-            case 1:
-                ageCategory = AgeCategory.adult;
-                break;
-            case 2:
-                ageCategory = AgeCategory.senior;
-                break;
+
+        switch (ageCatId) {
+        case 0:
+            ageCategory = AgeCategory.child;
+            break;
+        case 1:
+            ageCategory = AgeCategory.adult;
+            break;
+        case 2:
+            ageCategory = AgeCategory.senior;
+            break;
         }
-        
+
         EmploymentCategory empCategory;
-        
+
         switch (empCatId) {
-            case "employed":
-                empCategory = EmploymentCategory.employed;
-                break;
-            case "self-employed":
-                empCategory = EmploymentCategory.selfEmployed;
-                break;
-            case "unemployed":
-                empCategory = EmploymentCategory.unemployed;
-                break;
-            default:
-                empCategory = EmploymentCategory.other;
-                System.err.println(empCatId);
-                break;
+        case "employed":
+            empCategory = EmploymentCategory.employed;
+            break;
+        case "self-employed":
+            empCategory = EmploymentCategory.selfEmployed;
+            break;
+        case "unemployed":
+            empCategory = EmploymentCategory.unemployed;
+            break;
+        default:
+            empCategory = EmploymentCategory.other;
+            System.err.println(empCatId);
+            break;
         }
-        
+
         Gender genderCat;
-        
-        if(gender.equals("male")){
+
+        if (gender.equals("male")) {
             genderCat = Gender.male;
-        }
-        else {
+        } else {
             genderCat = Gender.female;
         }
-        
-        Person person = new Person(name, occupation, ageCategory, empCategory,
-            taxId, isUs, genderCat);
-        
+
+        final Person person = new Person(name, occupation, ageCategory, empCategory, taxId, isUs, genderCat);
+
         db.addPerson(person);
     }
-    
-    public void saveToFile(File file) throws IOException {
+
+    public void saveToFile(final File file) throws IOException {
         db.saveToFile(file);
     }
-    
-    public void loadFromFile(File file) throws IOException {
+
+    public void loadFromFile(final File file) throws IOException {
         db.loadFromFile(file);
     }
 }

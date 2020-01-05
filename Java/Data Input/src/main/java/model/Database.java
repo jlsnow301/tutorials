@@ -22,47 +22,47 @@ import java.util.List;
  */
 public class Database {
     
-    private List<Person> people;
-    
-    public Database(){
-        people = new LinkedList<Person>();
+    private final List<Person> people;
+
+    public Database() {
+        people = new LinkedList<>();
     }
-    
-    public void addPerson(Person person){
+
+    public void addPerson(final Person person) {
         people.add(person);
     }
-    
-    public void removePerson(int index){
+
+    public void removePerson(final int index) {
         people.remove(index);
     }
-    public List<
-        Person> getPeople(){
+
+    public List<Person> getPeople() {
         return Collections.unmodifiableList(people);
     }
-    
-    public void saveToFile(File file) throws IOException {
-        FileOutputStream fos = new FileOutputStream(file);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        
-        Person[] persons = people.toArray(new Person[people.size()]);
-        
+
+    public void saveToFile(final File file) throws IOException {
+        final FileOutputStream fos = new FileOutputStream(file);
+        final ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        final Person[] persons = people.toArray(new Person[people.size()]);
+
         oos.writeObject(persons);
-        
+
         oos.close();
     }
-    
-    public void loadFromFile(File file) throws IOException {
-        FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        
+
+    public void loadFromFile(final File file) throws IOException {
+        final FileInputStream fis = new FileInputStream(file);
+        final ObjectInputStream ois = new ObjectInputStream(fis);
+
         try {
-            Person[] persons = (Person[])ois.readObject();
-            
+            final Person[] persons = (Person[]) ois.readObject();
+
             people.clear();
-            
+
             people.addAll(Arrays.asList(persons));
-            
-        } catch (ClassNotFoundException ex) {
+
+        } catch (final ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         

@@ -13,6 +13,10 @@ import java.util.EventObject;
  */
 public class FormEvent extends EventObject {
     
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4315440931973531160L;
     private String name;
     private String occupation;
     private int ageCategory;
@@ -21,14 +25,14 @@ public class FormEvent extends EventObject {
     private boolean usCitizen;
     private String gender;
     
-    public FormEvent(Object source){
+    public FormEvent(final Object source) {
         super(source);
     }
 
-    public FormEvent(Object source, String name, String occupation, int ageCat,
-            String empCat, String taxId, boolean usCitizen, String gender){
+    public FormEvent(final Object source, final String name, final String occupation, final int ageCat,
+            final String empCat, final String taxId, final boolean usCitizen, final String gender) {
         super(source);
-        
+
         this.name = name;
         this.occupation = occupation;
         this.ageCategory = ageCat;
@@ -37,12 +41,12 @@ public class FormEvent extends EventObject {
         this.usCitizen = usCitizen;
         this.gender = gender;
     }
-    
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -50,7 +54,7 @@ public class FormEvent extends EventObject {
         return occupation;
     }
 
-    public void setOccupation(String occupation) {
+    public void setOccupation(final String occupation) {
         this.occupation = occupation;
     }
     

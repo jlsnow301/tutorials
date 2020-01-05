@@ -14,18 +14,22 @@ import java.awt.*;
  */
 public class TextPanel extends JPanel {
     
-    private JTextArea textArea;
-    
-    public TextPanel(){
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4740155469336282946L;
+    private final JTextArea textArea;
+
+    public TextPanel() {
         textArea = new JTextArea();
-        
+
         setLayout(new BorderLayout());
-        
+
         add(new JScrollPane(textArea), BorderLayout.CENTER);
-        
+
     }
-    
-    public void appendText(String text){
+
+    public void appendText(final String text) {
         textArea.append(text);
     }
     

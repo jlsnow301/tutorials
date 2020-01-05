@@ -12,6 +12,11 @@ import javax.swing.*;
  * @author jerm
  */
 public class Client extends JFrame {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4596829650962411382L;
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new MainFrame();

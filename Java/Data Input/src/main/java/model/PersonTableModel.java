@@ -7,7 +7,6 @@ package model;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Person;
 
 /**
  *
@@ -15,23 +14,28 @@ import model.Person;
  */
 public class PersonTableModel extends AbstractTableModel {
     
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3203842537799965021L;
+
     private List<Person> db;
     
-    private String[] colNames = {"ID", "Name", "Occupation", "Age Category",
-            "Employment Category", "US Citizen", "Tax ID"};
+    private final String[] colNames = { "ID", "Name", "Occupation", 
+        "Age Category", "Employment Category", "US Citizen", "Tax ID" };
 
-    public PersonTableModel(){
+    public PersonTableModel() {
     }
-    
+
     @Override
-    public String getColumnName(int column) {
+    public String getColumnName(final int column) {
         return colNames[column];
     }
-    
-    public void setData(List<Person> db){
+
+    public void setData(final List<Person> db) {
         this.db = db;
     }
-    
+
     @Override
     public int getRowCount() {
         return db.size();
@@ -43,8 +47,8 @@ public class PersonTableModel extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int row, int col) {
-        Person person = db.get(row);
+    public Object getValueAt(final int row, final int col) {
+        final Person person = db.get(row);
         
         switch(col){
             case 0:

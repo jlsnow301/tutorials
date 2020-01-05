@@ -18,58 +18,58 @@ import model.PersonTableModel;
  */
 public class TablePanel extends JPanel {
     
-    private JTable table;
-    private PersonTableModel tableModel;
-    private JPopupMenu popup;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5676481243003161519L;
+    private final JTable table;
+    private final PersonTableModel tableModel;
+    private final JPopupMenu popup;
     private PersonTableListener personTableListener;
-        
-    public TablePanel(){
-        
+
+    public TablePanel() {
+
         tableModel = new PersonTableModel();
         table = new JTable();
         popup = new JPopupMenu();
-        
-        JMenuItem removeItem = new JMenuItem("Delete Row");
+
+        final JMenuItem removeItem = new JMenuItem("Delete Row");
         popup.add(removeItem);
-        
+
         setLayout(new BorderLayout());
-        
+
         add(new JScrollPane(table), BorderLayout.CENTER);
-        
+
         table.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e){
-                
-                int row = table.rowAtPoint(e.getPoint());
+            public void mousePressed(final MouseEvent e) {
+
+                final int row = table.rowAtPoint(e.getPoint());
                 table.getSelectionModel().setSelectionInterval(row, row);
-                if(e.getButton() == MouseEvent.BUTTON3){
+                if (e.getButton() == MouseEvent.BUTTON3) {
                     popup.show(table, e.getX(), e.getY());
                 }
             }
         });
-        
-        removeItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ev) {
-                int row = table.getSelectedRow();
-                if(personTableListener != null){
-                    personTableListener.rowDeleted(row);
-                    tableModel.fireTableRowsDeleted(row, row);
-                }
+
+        removeItem.addActionListener((final ActionEvent ev) -> {
+            final int row = table.getSelectedRow();
+            if (personTableListener != null) {
+                personTableListener.rowDeleted(row);
+                tableModel.fireTableRowsDeleted(row, row);
             }
         });
     }
-    
-    public void setData(List<Person> db) {
+
+    public void setData(final List<Person> db) {
         tableModel.setData(db);
     }
-    
-    public void refresh(){
+
+    public void refresh() {
         tableModel.fireTableDataChanged();
-        System.out.println("yo");
     }
-    
-    public void setPersonTableListener(PersonTableListener listener){
+
+    public void setPersonTableListener(final PersonTableListener listener) {
         this.personTableListener = listener;        
     }
 }
