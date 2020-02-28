@@ -17,6 +17,7 @@ public class AssignmentTwo {
         // Array population
         while(scan.hasNext()){
             line = scan.nextLine();
+            // Plain text file must use tabs to separate state / capital / etc
             StringTokenizer st = new StringTokenizer(line, "\t");
             state = st.nextToken();
             capital = st.nextToken();
@@ -24,6 +25,7 @@ public class AssignmentTwo {
             statesCapitals[count][1] = capital;
             count++;
         }
+
         // Convert to Hashmap
         Map<String, String> statesMap = new HashMap<>();
         for(int i = 0; i < statesCapitals.length; i++){
@@ -36,6 +38,8 @@ public class AssignmentTwo {
         System.out.print("Type the name of a state, or type done to exit: ");
         userInput = input.next();
         userInput.toLowerCase();
+        
+        // Loop until user inputs 'done'
         while(!userInput.equals("done")){
             if(statesMap.containsKey(userInput)){
                 System.out.println("The capital of " + capitalizeWord(userInput)
