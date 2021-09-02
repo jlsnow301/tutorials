@@ -20,7 +20,7 @@ jobs:
       (github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]')
     steps:
       - name: "@dependabot merge"
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4.1
         with:
           github-token: ${{secrets.BOT_TOKEN}}
           script: |
