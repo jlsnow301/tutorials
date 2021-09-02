@@ -1,4 +1,5 @@
-# Assignments, Exercises, & Toolbox
+# Tutorial Repo: Foundational Computer Science
 
 This is a collection of work done in various programming languages.
-Some of these were homework assignments. Others are part of a toolbox.
+
+Some of these were homework assignments.
