@@ -13,10 +13,7 @@ jobs:
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Run Tests
-        run: yarn test;
   auto_merge:
-    needs: [test]
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'pull_request' &&
