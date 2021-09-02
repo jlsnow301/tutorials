@@ -2,4 +2,4 @@
 
 This is a collection of work done in various programming languages.
 
-Some of these were homework assignments.
+Some of these were homework assignments. Others were tutorials
