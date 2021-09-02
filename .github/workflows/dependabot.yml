@@ -1,5 +1,5 @@
 
-name: Install, Build, Test
+name: Dependabot AutoMerge
 
 on: [push, pull_request]
 jobs:
