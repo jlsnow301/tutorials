@@ -1,32 +1,14 @@
+name: auto-merge
 
-name: Dependabot AutoMerge
+on:
+  pull_request_target:
 
-on: [push, pull_request]
 jobs:
-  test:
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        node-version: [12.X.X]
-    steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@v2.4.0
-        with:
-          node-version: ${{ matrix.node-version }}
-  auto_merge:
+  auto-merge:
     runs-on: ubuntu-latest
-    if: |
-      github.event_name == 'pull_request' &&
-      (github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]')
     steps:
-      - name: "@dependabot merge"
-        uses: actions/github-script@v4.1
+      - uses: actions/checkout@v2
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
-          github-token: ${{secrets.BOT_TOKEN}}
-          script: |
-            github.issues.createComment({
-              owner: context.payload.repository.owner.login,
-              repo: context.payload.repository.name,
-              issue_number: context.payload.pull_request.number,
-              body: '@dependabot merge'
-            })
+          target: minor
+          github-token: ${{ secrets.BOT_TOKEN }}
