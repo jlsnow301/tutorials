@@ -1,17 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/yourorg/firstapp/greeting"
+)
+
+// var greetingText = "Hello World!!"
 
 func main() {
 	// var greetingText string = "Hello World!"
 	// var greetingText = "Hello World!"
-	greetingText := "Hello World!" 
+	// greetingText := "Hello World!" 
 	luckyNumber := 21
 
 	evenLuckierNumber := luckyNumber + 5
 
 	fmt.Println(luckyNumber)
-	fmt.Println(greetingText)
+	fmt.Println(greeting.GreetingText)
 	fmt.Println(evenLuckierNumber)
 
 	var newNumber float64 = float64(luckyNumber) / 3
@@ -37,6 +43,8 @@ func main() {
 	// Cannot mix types or parse natively?
 	//fmt.Println("9" + 1)
 	age := 33
+
+	fmt.Println(greeting.Pi);
 
 	fmt.Printf("Hi, I am %v and I am %v (TYPE: %T) years old.", fullName, age, age)
 
