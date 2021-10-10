@@ -8,6 +8,21 @@ import "fmt"
 // 	price float64
 // }
 
+// Dynamic lists
+func main() {
+	prices := []float64{10.99, 8.99}
+	fmt.Println(prices[0:1])
+	prices[1] = 9.99
+
+	prices = append(prices, 5.99)
+	prices = prices[1:]
+	fmt.Println(prices)
+
+	discountPrices := []float64{101.99, 80.99, 20.59}
+	prices = append(prices, discountPrices...)
+	fmt.Println(prices)
+}
+
 // Static lists
 // func main() {
 // 	var productNames [4]string = [4]string{"A book"}
@@ -28,16 +43,3 @@ import "fmt"
 // 	fmt.Println(highlightedPrices)
 // 	fmt.Println(len(featuredPrices), cap(featuredPrices))
 // }
-
-// Dynamic lists
-func main() {
-	prices := []float64{10.99, 8.99}
-
-	fmt.Println(prices[0:1])
-
-	prices[1] = 9.99
-	//prices[2] = 11.99
-
-	prices = append(prices, 5.99)
-	fmt.Println(prices)
-}
