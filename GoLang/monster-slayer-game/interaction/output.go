@@ -3,6 +3,7 @@ package interaction
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/common-nighthawk/go-figure"
 )
@@ -17,7 +18,7 @@ type RoundData struct {
 }
 
 func PrintGreeting() {
-	myFigure := figure.NewColorFigure("MONSTER SLAYER", "", "red", true)
+	myFigure := figure.NewFigure("MONSTER SLAYER", "", true)
 	myFigure.Print()
 	fmt.Println("Starting a new game...")
 	fmt.Println("Good luck!")
@@ -36,7 +37,7 @@ func ShowActions(isSpecialRound bool) {
 func PrintRoundStatistics(roundData *RoundData) {
 	if roundData.Action == "ATTACK" {
 		fmt.Printf("Player attacked monster for %v damage\n", roundData.PlayerAttackDamage)
-	} else if roundData.Action == "SPECIAL_ATTACK" {
+	} else if roundData.Action == "SPECIAL" {
 		fmt.Printf("Player used a strong attack against monster for %v damage\n", roundData.PlayerAttackDamage)
 	} else {
 		fmt.Printf("Player healed for %v\n", roundData.PlayerHealValue)
@@ -54,9 +55,16 @@ func DeclareWinner(winner string) {
 }
 
 func WriteLogFile(rounds *[]RoundData) {
-	file, error := os.Create("gamelog.txt")
+	dirName, error := os.Executable()
+	if error != nil {
+		fmt.Println("Writing log file failed.")
+		return
+	}
+	dirName = filepath.Dir(dirName)
+	file, error := os.Create(dirName + "/gamelog.txt")
 	if error != nil {
 		fmt.Println("Saving log file failed. Exiting.")
+		return
 	}
 	for index, value := range *rounds {
 		logEntry := map[string]string{
@@ -73,8 +81,8 @@ func WriteLogFile(rounds *[]RoundData) {
 		if error != nil {
 			fmt.Println("Writing into log file failed. Exiting.")
 			continue
-		}
-		file.Close()
-		fmt.Println("Wrote data to log.")
+		}	
 	}
+	file.Close()
+	fmt.Println("Wrote data to log.")
 }

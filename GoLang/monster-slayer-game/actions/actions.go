@@ -24,7 +24,7 @@ func AttackMonster(isSpecialAttack bool) int {
 
 func HealPlayer() int {
 	healValue := generateRandBetween(PLAYER_HEAL_MIN_VALUE, PLAYER_HEAL_MAX_VALUE)
-	healthDiff := 100 - currentPlayerHealth
+	healthDiff := PLAYER_HEALTH - currentPlayerHealth
 	if healthDiff >= healValue {
 		currentPlayerHealth += healValue
 		return healValue

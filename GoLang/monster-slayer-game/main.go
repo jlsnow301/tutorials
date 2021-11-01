@@ -13,7 +13,7 @@ func main() {
 	/** Player || Monster */
 	winner := ""
 	for winner == "" {
-		executeRound()
+		winner = executeRound()
 	}
 	endGame(winner)
 }

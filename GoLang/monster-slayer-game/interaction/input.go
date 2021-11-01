@@ -29,6 +29,6 @@ func getPlayerInput() (string, error) {
 	if error != nil {
 		return "", error
 	}
-	userInput = strings.Replace(userInput, "\r\n", "", -2)
+	userInput = strings.Replace(userInput, "\r\n", "", -1)
 	return userInput, error
 }
