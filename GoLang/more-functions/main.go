@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 
-// Testing sign
 func main() {
 	numbers := []int{1, 10, 15}
 	sum := sumUp(1,10,15, 40, -5)
