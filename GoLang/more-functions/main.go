@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// testing
 func main() {
 	numbers := []int{1, 10, 15}
 	sum := sumUp(1,10,15, 40, -5)
