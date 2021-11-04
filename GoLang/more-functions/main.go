@@ -1,23 +1,51 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
-// testing
 func main() {
-	numbers := []int{1, 10, 15}
-	sum := sumUp(1,10,15, 40, -5)
-	anotherSum := sumUp(1, numbers...)
+	userInput := getUserInput()
 
-	fmt.Println(sum)
-	fmt.Println(anotherSum)
+	storeData(userInput)
 }
 
-func sumUp(startingValue int, numbers ...int) int {
-	sum := 0
+func getUserInput() string {
+	fmt.Println("Please enter the text that should be stored.")
+	fmt.Print("Your input: ")
 
-	for _, val := range numbers {
-		sum += val
+	reader := bufio.NewReader(os.Stdin)
+
+	enteredText, err := reader.ReadString('\n')
+
+	if err != nil {
+		fmt.Println("Failed to read user input.")
+		return ""
 	}
 
-	return sum
+	return enteredText
+}
+
+func storeData(data string) {
+	file, error := os.Create("data/data.txt")
+	
+	if error != nil {
+		fmt.Println("Creating the file failed!")
+		panic(error)
+	}
+	
+	defer func() {
+		error := file.Close()
+		if error != nil {
+			fmt.Println("Closing the file failed!")
+		}
+	}()
+
+	file.WriteString(data)
+
+	fmt.Println("Successfully stored data in file!")
+
+	// file.Close()
 }
