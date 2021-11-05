@@ -44,9 +44,48 @@ func main() {
 	//createLog("Test")
 
 	// reader := bufio.NewReader(os.Stdin)
+	outputValue(userLog)
+	outputValue(message)
+
+	firstNumber := 5
+	secondNumber := 10.1
+	numbers := []int{1, 2, 3}
+
+	doubledFirstNumber := double(firstNumber)
+	doubledSecondNumber := double(secondNumber)
+	doubledNumbers := double(numbers)
+	doubleString := double("Test")
+
+	fmt.Println(doubledFirstNumber)
+	fmt.Println(doubledSecondNumber)
+	fmt.Println(doubledNumbers)
+	fmt.Println(doubleString)
+
 }
 
 func createLog(data logger) {
 	// More things
 	data.log()
 }
+
+// "any"
+func outputValue(value interface{}) {
+	val, ok := value.(string)
+	fmt.Println(val, ok)
+	fmt.Println(value)
+}
+
+func double(value interface{}) interface{} {
+	switch val := value.(type){
+	case int: 
+		return val * 2
+	case float64:
+		return val * 2
+	case []int:
+		newNumbers := append(val, val...)
+		return newNumbers
+	default:
+		return ""
+	}
+}
+
