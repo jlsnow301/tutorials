@@ -5,18 +5,6 @@ import (
 	"strings"
 )
 
-// Returns true if the row contains the word "experience"
-func getExpWord(row []string) bool {
-	words := row[3]
-	wordArray := strings.Fields(words)
-	for _, word := range wordArray {
-		if(strings.Contains(word, "experience")) {
-			return true
-		}
-	}
-	return false
-}
-
 // Returns true if the word contains "year"
 func nextIsYear(word string) bool {
 	return strings.Contains(word, "year")

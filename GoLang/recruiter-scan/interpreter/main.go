@@ -1,5 +1,12 @@
 package interpreter
 
+type Results struct {
+	Experience_req   *[]int
+	NoExp            *[]int
+	Name_mispellings *[]string
+	React_errors     *[]int
+}
+
 /**
  * Main function for the interpreter.
  * Assuming it gets a csv file,
@@ -8,19 +15,20 @@ package interpreter
  * 		2. noExp: an array of ints, where each int is the index of the row that could not be processed
  * 		3. listsExp: an array of ints, where each int is the index of the row that lists "experience" but could not be processed
  */
-func ReadData(data [][]string) ([]int, []int, []int, []string) {
+func ReadData(data *[][]string) Results {
 	experience_req := []int{}
 	noExp := []int{}
-	listsExp := []int{}
 	name_mispellings := []string{}
+	react_errors := []int{}
+
 	// Starts scanning over the data
-	for index, row := range data {
-		if(index == 0) {
-			continue
-		}
-		yearsExp, misspelling := readRow(row)
+	for index, row := range *data {
+		yearsExp, misspelling, reactNative := readRow(row)
 		if yearsExp == 0 {
 			noExp = append(noExp, index)
+		}
+		if yearsExp >= 7 && reactNative {
+			react_errors = append(react_errors, index)
 		}
 		experience_req = append(experience_req, yearsExp)
 
@@ -29,12 +37,5 @@ func ReadData(data [][]string) ([]int, []int, []int, []string) {
 		}
 
 	}
-	// Scans over noExp and detects if it mentions experience	
-	for _, index := range noExp {
-		if getExpWord(data[index]) {
-			listsExp = append(listsExp, index)
-		}
-	}
-
-	return experience_req, noExp, listsExp, name_mispellings
+	return Results{&experience_req, &noExp, &name_mispellings, &react_errors}
 }

@@ -14,9 +14,10 @@ import (
  * Explicit years like "5+ years", "3-5 years", "3 years"
  * Returns a number of years of experience or 0 if it couldn't be found
  */
-func readRow(row []string) (int, string) {
+func readRow(row []string) (int, string, bool) {
 	detections := []int{}
 	mispelling := ""
+	reactNative := false
 	words := row[3]
 	wordArray := strings.Fields(words)
 	regex := regexp.MustCompile("[0-9]+[+]?")
@@ -50,7 +51,11 @@ func readRow(row []string) (int, string) {
 			}
 			continue
 		}
-
+		if(strings.Contains(curWord, "react")) {
+			if(strings.Contains(nextWord, "native")) {
+				reactNative = true
+			}
+		}
 		if(regex.FindAll([]byte(curWord), -1) == nil) {
 			continue
 		}
@@ -73,5 +78,5 @@ func readRow(row []string) (int, string) {
 	} else {
 		yearsExp = getMax(detections)
 	}
-	return yearsExp, mispelling
+	return yearsExp, mispelling, reactNative
 }

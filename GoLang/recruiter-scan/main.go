@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/jlsnow301/tutorials/recruiter-scan/v2/interpreter"
+	"github.com/jlsnow301/tutorials/recruiter-scan/v2/writer"
 )
 
 func main() {
@@ -24,12 +25,13 @@ func main() {
 		panic(error)
 	}
 
-	experience_req, noExp, listsExp, misspells_jerm := interpreter.ReadData(data)
+	// Read data
+	results := interpreter.ReadData(&data) 
 
-	fmt.Println("Processed", len(experience_req), "rows")
-	fmt.Println("Could not retrieve year:", len(noExp), "rows")
-	fmt.Println("Lists 'experience' but could not retrieve year:", len(listsExp), "rows")
-	fmt.Println("Mispells 'Jeremiah':", len(misspells_jerm), "rows")
+	fmt.Println("Processed", len(*results.Experience_req), "rows")
+	fmt.Println("Could not retrieve year:", len(*results.NoExp), "rows")
+	fmt.Println("Mispells 'Jeremiah':", len(*results.Name_mispellings), "rows")
+	fmt.Println("Questionable React Native Requirements:", len(*results.React_errors), "rows")
 
-	//writer.WriteData(data, experience_req)
+	writer.WriteData(&data, *results.Experience_req)
 }
