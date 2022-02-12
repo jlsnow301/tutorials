@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/jlsnow301/tutorials/recruiter-scan/v2/interpreter"
-	"github.com/jlsnow301/tutorials/recruiter-scan/v2/writer"
 )
 
 func main() {
@@ -25,11 +24,12 @@ func main() {
 		panic(error)
 	}
 
-	experience_req, noExp, listsExp := interpreter.ReadData(data)
+	experience_req, noExp, listsExp, misspells_jerm := interpreter.ReadData(data)
 
 	fmt.Println("Processed", len(experience_req), "rows")
 	fmt.Println("Could not retrieve year:", len(noExp), "rows")
 	fmt.Println("Lists 'experience' but could not retrieve year:", len(listsExp), "rows")
+	fmt.Println("Mispells 'Jeremiah':", len(misspells_jerm), "rows")
 
-	writer.WriteData(data, experience_req)
+	//writer.WriteData(data, experience_req)
 }

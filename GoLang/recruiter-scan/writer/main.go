@@ -6,6 +6,11 @@ import (
 	"os"
 )
 
+/**
+ * Writes the data to a csv file.
+ * This adds in the values found in experience_req.
+ * The format is index/date/name/email/experience_req/message
+ */
 func WriteData(data [][]string, experience_req []int) {
 	// Open file
 	writeFile, error := os.Create("data-amended.csv")
