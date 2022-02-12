@@ -32,6 +32,9 @@ func main() {
 	fmt.Println("Could not retrieve year:", len(*results.NoExp), "rows")
 	fmt.Println("Mispells 'Jeremiah':", len(*results.Name_mispellings), "rows")
 	fmt.Println("Questionable React Native Requirements:", len(*results.React_errors), "rows")
+	fmt.Println("The max is:", interpreter.GetMax(*results.Experience_req))
+	fmt.Println("The mean is:", interpreter.GetMean(*results.Experience_req))
 
+	// Append the years exp to a csv
 	writer.WriteData(&data, *results.Experience_req)
 }

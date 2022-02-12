@@ -76,7 +76,7 @@ func readRow(row []string) (int, string, bool) {
 	if (len(detections) == 1) {
 		yearsExp = detections[0]
 	} else {
-		yearsExp = getMax(detections)
+		yearsExp = GetMax(detections)
 	}
 	return yearsExp, mispelling, reactNative
 }

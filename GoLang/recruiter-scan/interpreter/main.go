@@ -35,7 +35,7 @@ func ReadData(data *[][]string) Results {
 		if misspelling != "" {
 			name_mispellings = append(name_mispellings, misspelling)
 		}
-
 	}
+	
 	return Results{&experience_req, &noExp, &name_mispellings, &react_errors}
 }

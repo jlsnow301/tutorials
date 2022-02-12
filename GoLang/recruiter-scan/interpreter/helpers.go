@@ -16,7 +16,7 @@ func getAverage(num1 int, num2 int) int {
 }
 
 // Returns the largest number in the array
-func getMax(nums []int) int {
+func GetMax(nums []int) int {
 	max := 0
 	for _, num := range nums {
 		if(num > max) {
@@ -24,6 +24,19 @@ func getMax(nums []int) int {
 		}
 	}
 	return max
+}
+
+// Returns the mean of the array
+func GetMean(nums []int) int {
+	sum := 0
+	intCount := 0
+	for _, num := range nums {
+		if(num != 0) {
+			intCount++
+		}
+		sum += num
+	}
+	return int(math.Ceil(float64(sum) / float64(intCount)))
 }
 
 // Word helpers: Returns bool if word is about programming
