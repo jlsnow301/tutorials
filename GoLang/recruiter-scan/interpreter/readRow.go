@@ -14,15 +14,16 @@ import (
  * Explicit years like "5+ years", "3-5 years", "3 years"
  * Returns a number of years of experience or 0 if it couldn't be found
  */
-func readRow(row []string) (int, string, bool) {
+func readRow(row []string) int {
 	detections := []int{}
-	mispelling := ""
-	reactNative := false
-	words := row[3]
-	wordArray := strings.Fields(words)
-	regex := regexp.MustCompile("[0-9]+[+]?")
+	regex := regexp.MustCompile("[0-9]+")
+	words := row[3]	
 	yearsExp := 0
-
+	
+	// Regex filter all special characters
+	filter := regexp.MustCompile("[^a-zA-Z0-9-]+")
+	processedString := filter.ReplaceAllString(words, " ")
+	wordArray := strings.Fields(processedString)
 	// Start scanning over the words in the row
 	for index, word := range wordArray {
 		if(index == len(wordArray) - 1) {
@@ -40,21 +41,9 @@ func readRow(row []string) (int, string, bool) {
 			detections = append(detections, matchPhrase)
 			continue
 		}
-
-		if(len(curWord) >= 10){
+		// Start checking explicit years
+		if(len(curWord) >= 6){
 			continue
-		}
-		// Get mispellings
-		if(len(curWord) > 6 && len(curWord) < 10) {
-			if(getMispellings(curWord)) {
-				mispelling = curWord
-			}
-			continue
-		}
-		if(strings.Contains(curWord, "react")) {
-			if(strings.Contains(nextWord, "native")) {
-				reactNative = true
-			}
 		}
 		if(regex.FindAll([]byte(curWord), -1) == nil) {
 			continue
@@ -63,20 +52,19 @@ func readRow(row []string) (int, string, bool) {
 		if(!nextIsYear(nextWord)) {
 			continue
 		}
-		// Start checking numbered years.
+		// If it's a match, extract it
 		matchNumbers := getExplicitYears(curWord, nextWord)
 		if(matchNumbers != 0) {
 			detections = append(detections, matchNumbers)
 			continue
 		}
-
 	}
-
 	// Returns the experience required.
 	if (len(detections) == 1) {
 		yearsExp = detections[0]
 	} else {
 		yearsExp = GetMax(detections)
 	}
-	return yearsExp, mispelling, reactNative
+
+	return yearsExp
 }
