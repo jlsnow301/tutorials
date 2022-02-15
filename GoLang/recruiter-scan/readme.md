@@ -14,8 +14,11 @@ Recruiters are more likely to round up and be lenient on job postings, therefore
 
 I also assumed entry level was one, junior was 3, and senior/lead was 5.
 
+Results:
+![histogram](https://user-images.githubusercontent.com/42397676/153697018-13307173-11ad-4ec3-8c13-d93a3d69ca81.png)
 
-
+On Tableau:
+https://public.tableau.com/app/profile/jeremiah.snow/viz/Recruiter-Emails/Sheet1
 
 
 
