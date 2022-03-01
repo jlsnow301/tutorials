@@ -16,12 +16,13 @@ import (
  */
 func readRow(row []string) int {
 	detections := []int{}
-	regex := regexp.MustCompile("[0-9]+")
+	numericVal := regexp.MustCompile("[0-9]+")
+	notMoney := regexp.MustCompile("^k")
 	words := row[3]	
 	yearsExp := 0
-	
+
 	// Regex filter all special characters
-	filter := regexp.MustCompile("[^a-zA-Z0-9-]+")
+	filter := regexp.MustCompile("[^a-zA-Z0-9-/]+")
 	processedString := filter.ReplaceAllString(words, " ")
 	wordArray := strings.Fields(processedString)
 	// Start scanning over the words in the row
@@ -45,11 +46,16 @@ func readRow(row []string) int {
 		if(len(curWord) >= 6){
 			continue
 		}
-		if(regex.FindAll([]byte(curWord), -1) == nil) {
+		// The word isn't a number 
+		if(numericVal.FindAll([]byte(curWord), -1) == nil) {
 			continue
 		}
-		// And are followed by the word year/s
+		// That word isn't followed by "year/s"
 		if(!nextIsYear(nextWord)) {
+			continue
+		}		
+		// The word is discussing salary
+		if(notMoney.FindAll([]byte(curWord), -1) == nil) {
 			continue
 		}
 		// If it's a match, extract it
