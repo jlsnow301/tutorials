@@ -20,3 +20,11 @@ const convertedList: ConvertObjType[] = Object.keys(someObj).map((key) => {
 });
 
 console.log(convertedList);
+
+const coder = "jerm";
+
+console.log(!coder);
+console.log(!!!coder);
+if (!!!coder) {
+  console.log("coder is defined");
+}
