@@ -9,6 +9,5 @@ var newDog = {
 var isType = function (data, keys) {
     return keys.every(function (key) { return key in data; });
 };
-console.log(isType(newDog, Object.keys(newDog)));
-console.log(isType(newCat, Object.keys(newCat)));
-console.log(isType(newDog, Object.keys(newCat)));
+var Kitty = Object.keys(newCat);
+console.log(isType(newCat, Kitty));
