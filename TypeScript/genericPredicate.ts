@@ -18,9 +18,40 @@ const newDog = {
   wagsTail: true,
 };
 
-const isType = <T, K>(data: T, keys: K[]): data is T => {
-  return keys.every((key) => key in data);
+const Kitty = {
+  yawns: true,
+  meows: false,
 };
 
-const Kitty = Object.keys(newCat);
-console.log(isType(newCat, Kitty));
+/**
+ * ## hasKeys
+ *
+ * This function takes two items and compares keys.
+ *
+ * The first and second items must have identical keys.
+ *
+ * Originally built for json schema comparison.
+ * @param {object[] | object} obj The item to check
+ * @param {object[] | object} type A similar object or array of objects
+ * @returns {boolean} Returns true if the keys match
+ * @example
+ * ```typescript
+ * const cat = {
+ *  meows: true,
+ * };
+ * const dog = {
+ *  barks: true,
+ * };
+ * hasKeys(cat, dog); // false
+ * hasKeys(cat, cat); // true
+ * ```
+ */
+const hasKeys = <T extends Array<Record<string, any>> | Record<string, any>>(
+  obj: T,
+  type: T
+): obj is T =>
+  obj instanceof Array && type instanceof Array
+    ? obj.every((o) => hasKeys(o, type[0]))
+    : Object.keys(type).every((key) => key in obj);
+
+console.log(hasKeys(newCat, Kitty));
