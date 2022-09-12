@@ -1,27 +1,43 @@
-type Animal =
-  | {
-      yawns: boolean;
-      meows: boolean;
-    }
-  | {
-      barks: number;
-      wagsTail: boolean;
-    };
+type Cat = {
+  type: "cat";
+  meows: boolean;
+  yawns: boolean;
+};
 
-const newCat = {
+type Dog = {
+  type: "dog";
+  barks: number;
+  wagsTail: boolean;
+};
+
+const newCat: Animal = {
+  type: "cat",
   yawns: true,
   meows: true,
 };
-
-const newDog = {
+const newDog: Animal = {
+  type: "dog",
   barks: 100,
   wagsTail: true,
 };
+
+const animals = [newCat, newDog];
+
+type Animal = Cat | Dog;
+
+function filterCats<T extends Animal, U extends T["type"]>(
+  animals: T[],
+  type: U
+): T[] {
+  return animals.filter((animal) => animal.type === type);
+}
 
 const Kitty = {
   yawns: true,
   meows: false,
 };
+
+console.log(filterCats(animals, "cat"));
 
 /**
  * ## hasKeys
@@ -53,5 +69,3 @@ const hasKeys = <T extends Array<Record<string, any>> | Record<string, any>>(
   obj instanceof Array && type instanceof Array
     ? obj.every((o) => hasKeys(o, type[0]))
     : Object.keys(type).every((key) => key in obj);
-
-console.log(hasKeys(newCat, Kitty));

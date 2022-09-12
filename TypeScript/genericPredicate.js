@@ -1,15 +1,22 @@
 var newCat = {
+    type: "cat",
     yawns: true,
     meows: true
 };
 var newDog = {
+    type: "dog",
     barks: 100,
     wagsTail: true
 };
+var animals = [newCat, newDog];
+function filterCats(animals, type) {
+    return animals.filter(function (animal) { return animal.type === type; });
+}
 var Kitty = {
     yawns: true,
     meows: false
 };
+console.log(filterCats(animals, "cat"));
 /**
  * ## hasKeys
  *
@@ -35,7 +42,6 @@ var Kitty = {
  */
 var hasKeys = function (obj, type) {
     return obj instanceof Array && type instanceof Array
-        ? obj.every(function (item, index) { return hasKeys(item, type[index]); })
+        ? obj.every(function (o) { return hasKeys(o, type[0]); })
         : Object.keys(type).every(function (key) { return key in obj; });
 };
-console.log(hasKeys(newCat, Kitty));
