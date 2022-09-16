@@ -9,8 +9,8 @@
  * Objects must match in key names, and values must be of the same type.
  * @param obj The first object to be checked
  * @param type The second object / prototype to be compared against
- * @param maxDepth By default, this recursively checks to a depth of 5. This can be changed by passing in a different value.
  * @param depth Don't pass this in. This is used internally to track the depth of the recursion.
+ * @param maxDepth By default, this recursively checks to a depth of 5. This can be changed by passing in a different value.
  * @returns boolean
  * @example plain JS objects
  * ```js
@@ -40,12 +40,13 @@
 export const isType = (
   obj: unknown,
   type: unknown,
-  maxDepth = 5,
-  depth = 0
+  depth = 0,
+  maxDepth = 5
 ): boolean => {
-  const currentDepth = depth++;
-  if (currentDepth > maxDepth) {
-    throw new Error("Max depth reached");
+  // If we've reached max depth, stop looking
+  if (depth > maxDepth) {
+    console.log("max reached");
+    return true;
   }
   // Object is strictly the same value
   if (obj === type) {
@@ -63,16 +64,22 @@ export const isType = (
   if (obj instanceof Array && type instanceof Array) {
     return (
       obj.length === type.length &&
-      obj.every((item, index) => isType(item, type[index], currentDepth))
+      obj.every((item, index) => isType(item, type[index], depth + 1))
     );
   }
   // Object: Sort through keys and compare keynames and value types.
   if (obj instanceof Object && type instanceof Object) {
     return (
-      Object.keys(obj as Record<string, any>).length ===
-        Object.keys(type as Record<string, any>).length &&
-      Object.keys(obj as Record<string, any>).every(
-        (key) => key in type && isType(obj[key], type[key], currentDepth)
+      Object.keys(obj as Record<string, unknown>).length ===
+        Object.keys(type as Record<string, unknown>).length &&
+      Object.keys(obj as Record<string, unknown>).every(
+        (key) =>
+          key in type &&
+          isType(
+            obj[key as keyof unknown],
+            type[key as keyof unknown],
+            depth + 1
+          )
       )
     );
   }
