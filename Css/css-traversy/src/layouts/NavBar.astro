@@ -1,0 +1,23 @@
+---
+import NavItem from "../components/NavItem.astro";
+---
+
+<nav class="relative container mx-auto p-6">
+  <div class="flex items-center justify-between">
+    <div class="pt-2">
+      <img src="img/logo.svg" alt="" />
+    </div>
+    <div class="hidden md:flex space-x-6">
+      <NavItem>Pricing</NavItem>
+      <NavItem>Product</NavItem>
+      <NavItem>About Us</NavItem>
+      <NavItem>Careers</NavItem>
+      <NavItem>Community</NavItem>
+    </div>
+    <a
+      href="#"
+      class="p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight"
+      >Get Started</a
+    >
+  </div>
+</nav>
