@@ -1,4 +1,5 @@
 ---
+import GetStarted from "../components/GetStarted.astro";
 import NavItem from "../components/NavItem.astro";
 ---
 
@@ -14,10 +15,36 @@ import NavItem from "../components/NavItem.astro";
       <NavItem>Careers</NavItem>
       <NavItem>Community</NavItem>
     </div>
-    <a
-      href="#"
-      class="p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight"
-      >Get Started</a
+    <GetStarted />
+
+    <!-- Hamburger Icon -->
+    <button id="menu-btn" class="block hamburger focus:outline-none">
+      <script>
+        const btn = document.getElementById("menu-btn");
+        const nav = document.getElementById("menu");
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("open");
+          nav.classList.toggle("flex");
+          nav.classList.toggle("hidden");
+        });
+      </script>
+      <span class="hamburger-top"> </span>
+      <span class="hamburger-middle"> </span>
+      <span class="hamburger-bottom"> </span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="md:hidden">
+    <div
+      id="menu"
+      class="absolute flex flex-col items-center self-end hidden py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
     >
+      <a href="#">Pricing</a>
+      <a href="#">Product</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Community</a>
+    </div>
   </div>
 </nav>

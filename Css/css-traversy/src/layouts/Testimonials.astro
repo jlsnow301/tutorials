@@ -1,0 +1,32 @@
+---
+import GetStarted from "../components/GetStarted.astro";
+import Testimonial from "../components/Testimonial.astro";
+---
+
+<section id="Testimonials">
+  <div class="max-w-6xl px-5 mx-auto mt-32 text-center">
+    <h2 class="text-4xl font-bold text-center">
+      What's Different About Manage?
+    </h2>
+    <!-- Testimonials Container -->
+    <div class="flex flex-col mt-24 md:flex-row md:space-x-6">
+      <Testimonial avatar="anisha" name="Anisha Li">
+        "Manage has supercharged our team's workflow. The ability to maintain
+        visibility on larger milestones at all times keeps everyone motivated.""
+      </Testimonial>
+      <Testimonial avatar="ali" name="Ali Bravo">
+        "We have been able to cancel so many other subscriptions since using
+        Manage. There is no more cross-channel confusion and everyone is much
+        more focused.""
+      </Testimonial>
+      <Testimonial avatar="richard" name="Richard Watts">
+        "Manage allows us to provide structure and process. It keeps us focused
+        on the most important tasks at hand.""
+      </Testimonial>
+    </div>
+    <!-- Button -->
+    <div class="my-16">
+      <GetStarted />
+    </div>
+  </div>
+</section>

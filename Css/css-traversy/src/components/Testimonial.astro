@@ -1,0 +1,19 @@
+---
+type Props = {
+  name: string;
+  avatar: string;
+};
+
+const { avatar, name } = Astro.props as Props;
+---
+
+<!-- Testimonial 1 -->
+<div
+  class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
+>
+  <img class="w-16 -mt-14" src={`img/avatar-${avatar}.png`} alt="" />
+  <h5 class="text-lg font-bold">{name}</h5>
+  <p class="text-sm text-darkGrayishBlue">
+    <slot />
+  </p>
+</div>
