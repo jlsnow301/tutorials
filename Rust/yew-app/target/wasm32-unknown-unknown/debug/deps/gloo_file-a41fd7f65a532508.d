@@ -1,0 +1,11 @@
+D:\Projects\tutorials\Rust\yew-app\target\wasm32-unknown-unknown\debug\deps\gloo_file-a41fd7f65a532508.rmeta: C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\lib.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\blob.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_list.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_reader.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\object_url.rs
+
+D:\Projects\tutorials\Rust\yew-app\target\wasm32-unknown-unknown\debug\deps\libgloo_file-a41fd7f65a532508.rlib: C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\lib.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\blob.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_list.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_reader.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\object_url.rs
+
+D:\Projects\tutorials\Rust\yew-app\target\wasm32-unknown-unknown\debug\deps\gloo_file-a41fd7f65a532508.d: C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\lib.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\blob.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_list.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_reader.rs C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\object_url.rs
+
+C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\lib.rs:
+C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\blob.rs:
+C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_list.rs:
+C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\file_reader.rs:
+C:\Users\Jlsno\.cargo\registry\src\github.com-1ecc6299db9ec823\gloo-file-0.2.3\src\object_url.rs:
