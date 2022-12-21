@@ -1,3 +1,1 @@
-pub mod counter;
-
-pub use self::components::*;
+pub mod hello;
