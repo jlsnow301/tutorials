@@ -7,12 +7,14 @@ use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
 
 fn main() {
-    let num_3: u32 = 5;
-    let num_4: u32 = 4;
-
-    println!("5 + 4 = {}", num_3 + num_4);
-    println!("5 - 4 = {}", num_3 - num_4);
-    println!("5 * 4 = {}", num_3 * num_4);
-    println!("5 / 4 = {}", num_3 / num_4);
-    println!("5 % 4 = {}", num_3 % num_4);
+    let age = 22;
+    if (age >= 1) && (age <= 18) {
+        println!("Important Birthday");
+    } else if (age == 21) || (age == 50) {
+        println!("important birthday");
+    } else if age >= 65 {
+        println!("important birthday!");
+    } else {
+        println!("not an important birthday")
+    }
 }
