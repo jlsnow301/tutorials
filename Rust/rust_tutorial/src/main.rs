@@ -8,32 +8,28 @@ use std::io::{BufRead, BufReader, ErrorKind, Write};
 use std::sync::Arc;
 
 fn main() {
-    enum Day {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday,
-        Sunday,
+    let vec1: Vec<i32> = Vec::new();
+    let mut vec2 = vec![1, 2, 3, 4];
+
+    vec2.push(5);
+
+    println!("1st: {}", vec2[0]);
+
+    let second: &i32 = &vec2[1];
+
+    match vec2.get(1) {
+        Some(second) => println!("2nd: {}", second),
+        None => println!("No second val"),
     }
 
-    impl Day {
-        fn is_weekend(&self) -> bool {
-            match self {
-                Day::Saturday | Day::Sunday => true,
-                _ => false,
-            }
-        }
+    for i in &mut vec2 {
+        *i *= 2;
+    }
+    for i in &vec2 {
+        println!("{}", i);
     }
 
-    let today: Day = Day::Monday;
-    match today {
-        Day::Monday => println!("Everone hates monday!"),
-        Day::Thursday => println!("Almost there!"),
-        Day::Friday => println!("Weekend!"),
-        _ => println!("Another day"),
-    }
+    println!("Vec length {}", vec2.len());
 
-    println!("Is today a weekend? {}", today.is_weekend());
+    println!("Pop : {:?}", vec2.len());
 }
