@@ -5,28 +5,18 @@ use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
+use std::process::Output;
 use std::sync::Arc;
 
-fn get_sum(x: i32) -> (i32, i32) {
-    return (x + 1, x + 2);
-}
+use std::ops::Add;
 
-fn sum_list(list: &[i32]) -> i32 {
-    let mut sum = 0;
-    for &val in list.iter() {
-        sum += &val;
-    }
-
-    return sum;
+fn get_sum_gen<Tnum: Add<Output = Tnum>>(x: Tnum, y: Tnum) -> Tnum {
+    return x + y;
 }
 
 fn main() {
-    // Functions
+    // generic basics
 
-    let (val_1, val_2) = get_sum(3);
-
-    let num_list = vec![1, 2, 3, 4, 5];
-
-    println!("Numbers: {}, {}", val_1, val_2);
-    println!("Sum of list = {}", sum_list(&num_list));
+    println!("5 + 4 = {}", get_sum_gen(5, 4));
+    println!("5.2 + 4.6 = {}", get_sum_gen(5.2, 4.6));
 }
