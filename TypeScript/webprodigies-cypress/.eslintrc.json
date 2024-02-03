@@ -43,23 +43,23 @@
       }
     ],
     "react/jsx-sort-props": [
-      "error",
+      "warn",
       {
         "ignoreCase": true
       }
     ],
     "prefer-destructuring": "off",
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
     "sort-destructure-keys/sort-destructure-keys": [
       1,
       { "caseSensitive": false }
     ],
-    "typescript-sort-keys/interface": "error",
-    "typescript-sort-keys/string-enum": "error",
-    "unused-imports/no-unused-imports": "error",
+    "typescript-sort-keys/interface": "warn",
+    "typescript-sort-keys/string-enum": "warn",
+    "unused-imports/no-unused-imports": "warn",
     "unused-imports/no-unused-vars": [
-      "error",
+      "warn",
       {
         "vars": "all",
         "varsIgnorePattern": "^_",

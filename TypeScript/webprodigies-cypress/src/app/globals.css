@@ -15,7 +15,7 @@ body {
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 262.1 83.3% 57.8%;
+    --primary: 266, 100%, 50%;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
@@ -32,33 +32,99 @@ body {
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
+    --background: 249 100% 3.9%;
+    --foreground: 248 100% 88%;
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
-    --primary: 263.4 70% 50.4%;
+    --primary: 266, 100%, 50%;
     --primary-foreground: 210 20% 98%;
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
+    --muted-foreground: 217.9 10.6% 30.9%;
     --accent: 215 27.9% 16.9%;
     --accent-foreground: 210 20% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
+    --border: 247, 18.3%, 18.2%;
     --input: 215 27.9% 16.9%;
     --ring: 263.4 70% 50.4%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.animate-slide {
+  animation: 15s slide linear infinite;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.ce-popover-item:hover {
+  @apply bg-muted/40 transition-all !important;
+}
+
+.ce-popover--opened {
+  @apply border-border bg-card outline-none dark:text-muted;
+}
+
+.ce-popover-item__icon {
+  @apply font-medium text-white shadow-none dark:border-[1px] dark:bg-background !important;
+}
+
+.ce-popover-item__title {
+  @apply font-normal dark:text-Neutrals/neutrals-7;
+}
+
+.cdx-search-field {
+  @apply bg-background;
+}
+
+.ce-toolbar__content,
+.ce-block__content {
+  max-width: 750px;
+}
+
+.editorFocus {
+  @apply border-none outline-none;
+}
+
+/* .dotPattern {
+  background-image: radial-gradient(rgb(25, 25, 25) 1px, transparent 1px);
+  background-size: 30px 30px;
+} */
+
+.ql-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.ql-toolbar {
+  @apply sticky left-0 right-0 top-0 z-40 flex flex-wrap items-center justify-center !border-none bg-white/40 backdrop-blur-md dark:bg-background/70;
+}
+
+.ql-formats {
+  @apply flex flex-shrink-0;
+}
+
+.ql-container {
+  @apply !border-none;
+}
+
+.ql-editor > p,
+ol,
+ul {
+  @apply dark:text-washed-purple-700;
 }
