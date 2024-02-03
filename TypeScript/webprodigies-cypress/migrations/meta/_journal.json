@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1706940843419,
+      "tag": "0000_motionless_hiroim",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1706941934780,
+      "tag": "0001_tense_korg",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706942397076,
+      "tag": "0002_serious_jean_grey",
+      "breakpoints": true
+    }
+  ]
+}
