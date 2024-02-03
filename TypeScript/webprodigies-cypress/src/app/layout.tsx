@@ -1,12 +1,13 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import { type PropsWithChildren } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { ThemeProvider } from "@/lib/providers/next-theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = DM_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +19,7 @@ export default function RootLayout(props: PropsWithChildren) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={twMerge("bg-background", inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
