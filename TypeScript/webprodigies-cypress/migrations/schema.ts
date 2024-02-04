@@ -1,16 +1,16 @@
-import {
-  pgTable,
-  pgEnum,
-  uuid,
-  timestamp,
-  text,
-  foreignKey,
-  jsonb,
-  boolean,
-  bigint,
-  integer,
-} from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
+import {
+  bigint,
+  boolean,
+  foreignKey,
+  integer,
+  jsonb,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const keyStatus = pgEnum("key_status", [
   "expired",
@@ -117,7 +117,7 @@ export const users = pgTable(
         name: "users_id_fkey",
       }),
     };
-  }
+  },
 );
 
 export const customers = pgTable("customers", {
