@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -45,13 +45,13 @@ export default function LoginPage() {
       return;
     }
 
-    await router.replace("/dashboard");
+    router.replace("/dashboard");
   }
 
   return (
     <Form {...form}>
       <form
-        className="flex-center flex w-full space-y-6 sm:w-[400px] sm:justify-center "
+        className="flex-center flex  w-full flex-col space-y-6 sm:w-[400px] sm:justify-center "
         onChange={() => {
           if (submitError) setSubmitError("");
         }}
@@ -75,7 +75,7 @@ export default function LoginPage() {
           control={form.control}
           disabled={isLoading}
           name="email"
-          render={(field) => (
+          render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input placeholder="Email" type="email" {...field} />
@@ -87,7 +87,7 @@ export default function LoginPage() {
           control={form.control}
           disabled={isLoading}
           name="password"
-          render={(field) => (
+          render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input placeholder="password" type="password" {...field} />
