@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { type Workspace } from "@/lib/supabase/types";
+import { type Workspace } from "@/lib/supabase/drizzle-types";
 
 type Props = {
   onClick?: (option: Workspace) => void;

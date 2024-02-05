@@ -7,13 +7,15 @@ import { useForm } from "react-hook-form";
 import { v4 } from "uuid";
 
 import { useAppState } from "@/lib/providers/state-provider";
+import {
+  type Subscription,
+  type Workspace,
+} from "@/lib/supabase/drizzle-types";
 import { createWorkspace } from "@/lib/supabase/queries";
-import { type Subscription } from "@/lib/supabase/types";
-import { type Workspace } from "@/lib/supabase/types";
 import { type WorkspaceForm } from "@/lib/types";
 
 import { EmojiPicker } from "../global/emoji-picker";
-import { Loader } from "../global/Loader";
+import { Loader } from "../global/loader";
 import { Button } from "../ui/button";
 import {
   Card,

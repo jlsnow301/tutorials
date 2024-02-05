@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { useAppState } from "@/lib/providers/state-provider";
-import { type Workspace } from "@/lib/supabase/types";
+import { type Workspace } from "@/lib/supabase/drizzle-types";
 
 import { CustomDialogTrigger } from "../global/custom-dialog";
 import { WorkspaceCreator } from "../global/workspace-creator";

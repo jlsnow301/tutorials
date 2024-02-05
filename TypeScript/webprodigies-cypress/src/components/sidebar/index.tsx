@@ -11,6 +11,7 @@ import {
   getUserSubscriptionStatus,
 } from "@/lib/supabase/queries";
 
+import { PlanUsage } from "./plan-usage";
 import { WorkspaceDropdown } from "./workspace-dropdown";
 
 type Props = {
@@ -58,10 +59,14 @@ export async function Sidebar(props: Props) {
     >
       <div>
         <WorkspaceDropdown
-          collaboratingWorkspace={collaboratingWorkspaces}
+          collaboratingWorkspaces={collaboratingWorkspaces}
           defaultValue={defaultVal}
           privateWorkspaces={privateWorkspaces}
           sharedWorkspaces={sharedWorkspaces}
+        />
+        <PlanUsage
+          foldersLength={folderData?.length}
+          subscription={subscriptionData}
         />
       </div>
     </aside>

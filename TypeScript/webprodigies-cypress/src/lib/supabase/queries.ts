@@ -1,4 +1,6 @@
-import { and, eq, notExists } from "drizzle-orm";
+"use server";
+
+import { and, eq, ilike, notExists } from "drizzle-orm";
 import { validate } from "uuid";
 
 import { files, folders, users, workspaces } from "../../../migrations/schema";
@@ -150,4 +152,15 @@ export async function getSharedWorkspaces(userId: string) {
 
 export async function addCollaborators(users: User[], workspaceId: string) {
   users.forEach((user) => void addCollaborator(user, workspaceId));
+}
+
+export async function getUsersFromSearch(email: string) {
+  if (!email) return;
+
+  const accounts = await db
+    .select()
+    .from(users)
+    .where(ilike(users.email, `${email}%`));
+
+  return accounts as User[];
 }
