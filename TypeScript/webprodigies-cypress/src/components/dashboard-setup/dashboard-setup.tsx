@@ -1,13 +1,20 @@
 "use client";
-
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { type AuthUser } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 } from "uuid";
 
-import { type Subscription, type Workspace } from "@/lib/supabase/types";
+import { useAppState } from "@/lib/providers/state-provider";
+import { createWorkspace } from "@/lib/supabase/queries";
+import { type Subscription } from "@/lib/supabase/types";
+import { type Workspace } from "@/lib/supabase/types";
 import { type WorkspaceForm } from "@/lib/types";
 
 import { EmojiPicker } from "../global/emoji-picker";
+import { Loader } from "../global/Loader";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -17,6 +24,7 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useToast } from "../ui/use-toast";
 
 type Props = {
   subscription: Subscription | undefined;
@@ -25,7 +33,12 @@ type Props = {
 
 export function DashboardSetup(props: Props) {
   const { subscription, user } = props;
-  const [selectedEmoji, setSelectedEmoji] = useState("🏝️");
+
+  const { toast } = useToast();
+  const router = useRouter();
+  const { dispatch } = useAppState();
+  const [selectedEmoji, setSelectedEmoji] = useState("💼");
+  const supabase = createClientComponentClient();
 
   const {
     formState: { errors, isSubmitting: isLoading },
@@ -41,7 +54,8 @@ export function DashboardSetup(props: Props) {
   });
 
   async function onSubmit(value: WorkspaceForm) {
-    const file = value.logo?.[0];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const file = value.logo?.[0] as File;
     let filePath = null;
     const workspaceUUID = v4();
     console.log(file);
@@ -73,10 +87,10 @@ export function DashboardSetup(props: Props) {
         inTrash: "",
         title: value.workspaceName,
         workspaceOwner: user.id,
-        logo: filePath || null,
+        logo: filePath ?? null,
         bannerUrl: "",
       };
-      const { data, error: createError } = await createWorkspace(newWorkspace);
+      const { error: createError } = await createWorkspace(newWorkspace);
       if (createError) {
         throw new Error();
       }
@@ -105,26 +119,37 @@ export function DashboardSetup(props: Props) {
   }
 
   return (
-    <Card className="h-screen w-[800px] sm:h-auto">
+    <Card
+      className="h-screen
+      w-[800px]
+      sm:h-auto
+  "
+    >
       <CardHeader>
-        <CardTitle>Create a Workspace</CardTitle>
+        <CardTitle>Create A Workspace</CardTitle>
         <CardDescription>
-          Let&apos;s create a private workspace to get you started. You can add
+          Lets create a private workspace to get you started.You can add
           collaborators later from the workspace settings tab.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={() => {}}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
+            <div
+              className="flex
+            items-center
+            gap-4"
+            >
               <div className="text-5xl">
-                <EmojiPicker getValue={setSelectedEmoji}>
+                <EmojiPicker getValue={(emoji) => setSelectedEmoji(emoji)}>
                   {selectedEmoji}
                 </EmojiPicker>
               </div>
-              <div className="w-full">
+              <div className="w-full ">
                 <Label
-                  className="text-sm text-muted-foreground"
+                  className="text-sm
+                  text-muted-foreground
+                "
                   htmlFor="workspaceName"
                 >
                   Name
@@ -132,7 +157,7 @@ export function DashboardSetup(props: Props) {
                 <Input
                   disabled={isLoading}
                   id="workspaceName"
-                  placeholder="Workspace name"
+                  placeholder="Workspace Name"
                   type="text"
                   {...register("workspaceName", {
                     required: "Workspace name is required",
@@ -144,22 +169,41 @@ export function DashboardSetup(props: Props) {
               </div>
             </div>
             <div>
-              <Label className="text-sm text-muted-foreground" htmlFor="logo">
+              <Label
+                className="text-sm
+                  text-muted-foreground
+                "
+                htmlFor="logo"
+              >
                 Workspace Logo
               </Label>
               <Input
                 accept="image/*"
-                disabled={isLoading || subscription?.status !== "active"}
                 id="logo"
-                placeholder="Workspace name"
+                placeholder="Workspace Name"
                 type="file"
                 {...register("logo", {
-                  required: "Workspace name is required",
+                  required: false,
                 })}
               />
               <small className="text-red-600">
                 {errors?.logo?.message?.toString()}
               </small>
+              {subscription?.status !== "active" && (
+                <small
+                  className="
+                  block
+                  text-muted-foreground
+              "
+                >
+                  To customize your workspace, you need to be on a Pro Plan
+                </small>
+              )}
+            </div>
+            <div className="self-end">
+              <Button disabled={isLoading} type="submit">
+                {!isLoading ? "Create Workspace" : <Loader />}
+              </Button>
             </div>
           </div>
         </form>

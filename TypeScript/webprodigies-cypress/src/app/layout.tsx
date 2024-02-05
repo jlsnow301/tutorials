@@ -6,6 +6,8 @@ import { type PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { ThemeProvider } from "@/lib/providers/next-theme-provider";
+import AppStateProvider from "@/lib/providers/state-provider";
+import { SupabaseUserProvider } from "@/lib/providers/supabase-user-provider";
 
 const inter = DM_Sans({ subsets: ["latin"] });
 
@@ -20,12 +22,11 @@ export default function RootLayout(props: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={twMerge("bg-background", inter.className)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-        ></ThemeProvider>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <AppStateProvider>
+            <SupabaseUserProvider>{children}</SupabaseUserProvider>
+          </AppStateProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

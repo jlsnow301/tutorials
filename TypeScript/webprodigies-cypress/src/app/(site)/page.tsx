@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { CLIENTS, PRICING_CARDS, PRICING_PLANS, USERS } from "@/lib/constants";
+import db from "@/lib/supabase/db";
 
 import Banner from "../../../public/appBanner.png";
 import Cal from "../../../public/cal.png";
@@ -16,6 +17,7 @@ import CheckIcon from "../../../public/icons/check.svg";
 import Diamond from "../../../public/icons/diamond.svg";
 
 export default function HomePage() {
+  console.log(db);
   return (
     <>
       <TopSection />

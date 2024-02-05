@@ -1,16 +1,3 @@
-import { type InferSelectModel } from "drizzle-orm";
-
-import {
-  type customers,
-  type files,
-  type folders,
-  type prices,
-  type products,
-  type subscriptions,
-  type users,
-  type workspaces,
-} from "../../../migrations/schema";
-
 export type Json =
   | string
   | number
@@ -40,6 +27,39 @@ export type Database = {
       [_ in never]: never;
     };
     Tables: {
+      collaborators: {
+        Insert: {
+          created_at?: string;
+          user_id: string;
+          workspace_id: string;
+        };
+        Relationships: [
+          {
+            columns: ["user_id"];
+            foreignKeyName: "collaborators_user_id_users_id_fk";
+            isOneToOne: false;
+            referencedColumns: ["id"];
+            referencedRelation: "users";
+          },
+          {
+            columns: ["workspace_id"];
+            foreignKeyName: "collaborators_workspace_id_workspaces_id_fk";
+            isOneToOne: false;
+            referencedColumns: ["id"];
+            referencedRelation: "workspaces";
+          },
+        ];
+        Row: {
+          created_at: string;
+          user_id: string;
+          workspace_id: string;
+        };
+        Update: {
+          created_at?: string;
+          user_id?: string;
+          workspace_id?: string;
+        };
+      };
       customers: {
         Insert: {
           id: string;
@@ -485,15 +505,3 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
     ? Database["public"]["Enums"][PublicEnumNameOrOptions]
     : never;
-
-export type Workspace = InferSelectModel<typeof workspaces>;
-export type User = InferSelectModel<typeof users>;
-export type Folder = InferSelectModel<typeof folders>;
-export type Files = InferSelectModel<typeof files>;
-export type Product = InferSelectModel<typeof products>;
-export type Price = InferSelectModel<typeof prices> & { products?: Product };
-export type Customer = InferSelectModel<typeof customers>;
-export type Subscription = InferSelectModel<typeof subscriptions> & {
-  prices: Price;
-};
-export type ProductWithPrice = Product & { prices?: Price[] };
