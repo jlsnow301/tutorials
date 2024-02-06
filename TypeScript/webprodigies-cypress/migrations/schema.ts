@@ -1,4 +1,3 @@
-import { sql } from "drizzle-orm";
 import {
   bigint,
   boolean,
@@ -169,40 +168,40 @@ export const subscriptions = pgTable("subscriptions", {
   quantity: integer("quantity"),
   cancelAtPeriodEnd: boolean("cancel_at_period_end"),
   created: timestamp("created", { withTimezone: true, mode: "string" })
-    .default(sql`now()`)
+    .defaultNow()
     .notNull(),
   currentPeriodStart: timestamp("current_period_start", {
     withTimezone: true,
     mode: "string",
   })
-    .default(sql`now()`)
+    .defaultNow()
     .notNull(),
   currentPeriodEnd: timestamp("current_period_end", {
     withTimezone: true,
     mode: "string",
   })
-    .default(sql`now()`)
+    .defaultNow()
     .notNull(),
   endedAt: timestamp("ended_at", {
     withTimezone: true,
     mode: "string",
-  }).default(sql`now()`),
+  }).defaultNow(),
   cancelAt: timestamp("cancel_at", {
     withTimezone: true,
     mode: "string",
-  }).default(sql`now()`),
+  }).defaultNow(),
   canceledAt: timestamp("canceled_at", {
     withTimezone: true,
     mode: "string",
-  }).default(sql`now()`),
+  }).defaultNow(),
   trialStart: timestamp("trial_start", {
     withTimezone: true,
     mode: "string",
-  }).default(sql`now()`),
+  }).defaultNow(),
   trialEnd: timestamp("trial_end", {
     withTimezone: true,
     mode: "string",
-  }).default(sql`now()`),
+  }).defaultNow(),
 });
 
 export const collaborators = pgTable("collaborators", {

@@ -1,4 +1,5 @@
 "use client";
+
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { type AuthUser } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
@@ -8,10 +9,7 @@ import { v4 } from "uuid";
 
 import { useAppState } from "@/lib/providers/state-provider";
 import { createWorkspace } from "@/lib/supabase/queries";
-import {
-  type Subscription,
-  type Workspace,
-} from "@/lib/supabase/schema";
+import { type Subscription, type Workspace } from "@/lib/supabase/schema";
 import { type WorkspaceForm } from "@/lib/types";
 
 import { EmojiPicker } from "../global/emoji-picker";

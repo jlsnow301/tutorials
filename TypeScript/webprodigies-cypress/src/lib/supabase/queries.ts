@@ -172,10 +172,23 @@ export async function getUsersFromSearch(email: string) {
 
 export async function createFolder(folder: Folder) {
   try {
-    const response = await db.insert(folders).values(folder);
+    await db.insert(folders).values(folder);
+
     return { data: null, error: null };
   } catch (err) {
     console.log(err);
+    return { data: null, error: "Error" };
+  }
+}
+
+export async function updateFolder(folder: Partial<Folder>, folderId: string) {
+  try {
+    await db.update(folders).set(folder).where(eq(folders.id, folderId));
+
+    return { data: null, error: null };
+  } catch (err) {
+    console.log(err);
+
     return { data: null, error: "Error" };
   }
 }

@@ -9,7 +9,9 @@ import { createFolder } from "@/lib/supabase/queries";
 import { type Folder } from "@/lib/supabase/schema";
 
 import { TooltipWrapper } from "../global/tooltip-wrapper";
+import { Accordion } from "../ui/accordion";
 import { useToast } from "../ui/use-toast";
+import { Dropdown } from "./dropdown";
 
 type Props = {
   workspaceFolders: Folder[];
@@ -20,7 +22,7 @@ export function FoldersDropDownList(props: Props) {
   const { workspaceFolders, workspaceId } = props;
   const { toast } = useToast();
 
-  const { dispatch, state } = useAppState();
+  const { dispatch, folderId, state } = useAppState();
   const [folders, setFolders] = useState<Folder[]>([]);
 
   async function addFolder() {
@@ -93,6 +95,23 @@ export function FoldersDropDownList(props: Props) {
           />
         </TooltipWrapper>
       </div>
+      <Accordion
+        className="pb-20"
+        defaultValue={[folderId ?? ""]}
+        type="multiple"
+      >
+        {folders
+          .filter((folder) => !folder.inTrash)
+          .map((folder) => (
+            <Dropdown
+              iconId={folder.iconId}
+              id={folder.id}
+              key={folder.id}
+              listType="folder"
+              title={folder.title}
+            />
+          ))}
+      </Accordion>
     </>
   );
 }

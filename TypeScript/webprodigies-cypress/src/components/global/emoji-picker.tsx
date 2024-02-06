@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import { type PropsWithChildren } from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -16,7 +15,6 @@ type Selection = {
 
 export function EmojiPicker(props: Props) {
   const { children, getValue } = props;
-  const router = useRouter();
   const Picker = dynamic(() => import("emoji-picker-react"));
 
   function onClick(selected: Selection) {
@@ -28,7 +26,7 @@ export function EmojiPicker(props: Props) {
       <Popover>
         <PopoverTrigger className="cursor-pointer">{children}</PopoverTrigger>
         <PopoverContent className="border-none p-0">
-          <Picker onEmojiClick={onClick}></Picker>
+          <Picker onEmojiClick={onClick} />
         </PopoverContent>
       </Popover>
     </div>
