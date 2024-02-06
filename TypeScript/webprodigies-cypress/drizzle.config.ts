@@ -1,5 +1,5 @@
-import { type Config } from "drizzle-kit";
 import dotenv from "dotenv";
+import { type Config } from "drizzle-kit";
 
 dotenv.config({ path: ".env" });
 
@@ -8,7 +8,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 export default {
-  schema: "./src/lib/supabase/schema.ts",
+  schema: "./migrations/schema.ts",
   out: "./migrations",
   driver: "pg",
   dbCredentials: { connectionString: process.env.DATABASE_URL || "" },

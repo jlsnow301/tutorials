@@ -10,8 +10,8 @@ import {
 } from "react";
 
 import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { type User } from "@/lib/supabase/drizzle-types";
 import { getUsersFromSearch } from "@/lib/supabase/queries";
+import { type User } from "@/lib/supabase/schema";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";

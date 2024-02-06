@@ -11,6 +11,9 @@ import {
   getUserSubscriptionStatus,
 } from "@/lib/supabase/queries";
 
+import { ScrollArea } from "../ui/scroll-area";
+import { FoldersDropDownList } from "./folders-dropdown-list";
+import { NativeNavigation } from "./native-navigation";
 import { PlanUsage } from "./plan-usage";
 import { WorkspaceDropdown } from "./workspace-dropdown";
 
@@ -68,6 +71,14 @@ export async function Sidebar(props: Props) {
           foldersLength={folderData?.length}
           subscription={subscriptionData}
         />
+        <NativeNavigation myWorkspaceId={params.workspaceId} />
+        <ScrollArea className="relative h-[450px] overflow-scroll">
+          <div className="pointer-events-none absolute bottom-0 z-40 h-20 w-full bg-gradient-to-t from-background to-transparent" />
+          <FoldersDropDownList
+            workspaceFolders={folderData ?? []}
+            workspaceId={params.workspaceId}
+          />
+        </ScrollArea>
       </div>
     </aside>
   );

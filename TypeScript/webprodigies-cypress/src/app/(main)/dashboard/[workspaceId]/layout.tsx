@@ -3,7 +3,7 @@ import { type PropsWithChildren } from "react";
 import { Sidebar } from "@/components/sidebar";
 
 type Props = PropsWithChildren<{
-  params: any;
+  params: Record<string, string>;
 }>;
 
 export default function DashboardLayout(props: Props) {

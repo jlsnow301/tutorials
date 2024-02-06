@@ -6,8 +6,8 @@ import { useState } from "react";
 import { v4 } from "uuid";
 
 import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { type User, type Workspace } from "@/lib/supabase/drizzle-types";
 import { addCollaborators, createWorkspace } from "@/lib/supabase/queries";
+import { type User, type Workspace } from "@/lib/supabase/schema";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";

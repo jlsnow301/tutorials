@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { MAX_FOLDERS_FREE_PLAN } from "@/lib/constants";
 import { useAppState } from "@/lib/providers/state-provider";
-import { type Subscription } from "@/lib/supabase/drizzle-types";
+import { type Subscription } from "@/lib/supabase/schema";
 
 import { CypressDiamondIcon } from "../icons/cypressDiamondIcon";
 import { Progress } from "../ui/progress";

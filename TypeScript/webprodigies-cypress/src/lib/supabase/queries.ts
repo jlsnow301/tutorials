@@ -3,16 +3,21 @@
 import { and, eq, ilike, notExists } from "drizzle-orm";
 import { validate } from "uuid";
 
-import { files, folders, users, workspaces } from "../../../migrations/schema";
+import {
+  collaborators,
+  files,
+  folders,
+  users,
+  workspaces,
+} from "../../../migrations/schema";
 import db from "./db";
+import { addCollaborator, validateUser } from "./helpers";
 import {
   type Folder,
   type Subscription,
   type User,
   type Workspace,
-} from "./drizzle-types";
-import { addCollaborator, validateUser } from "./helpers";
-import { collaborators } from "./schema";
+} from "./schema";
 
 export async function getUserSubscriptionStatus(userId: string) {
   try {
@@ -163,4 +168,14 @@ export async function getUsersFromSearch(email: string) {
     .where(ilike(users.email, `${email}%`));
 
   return accounts as User[];
+}
+
+export async function createFolder(folder: Folder) {
+  try {
+    const response = await db.insert(folders).values(folder);
+    return { data: null, error: null };
+  } catch (err) {
+    console.log(err);
+    return { data: null, error: "Error" };
+  }
 }

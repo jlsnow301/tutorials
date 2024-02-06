@@ -13,7 +13,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 
 import { getUserSubscriptionStatus } from "../supabase/queries";
-import { type Subscription } from "../supabase/types";
+import { type Subscription } from "../supabase/schema";
 
 type ContextType = {
   subscription: Subscription | undefined;

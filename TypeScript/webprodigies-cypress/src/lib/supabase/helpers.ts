@@ -3,7 +3,7 @@ import { validate } from "uuid";
 
 import { collaborators } from "../../../migrations/schema";
 import db from "./db";
-import { type User } from "./drizzle-types";
+import { type User } from "./schema";
 
 export function validateUser(userId: string) {
   if (!userId) return false;

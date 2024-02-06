@@ -10,8 +10,12 @@ import {
   useReducer,
 } from "react";
 
-import { type Folder, type Workspace } from "../supabase/drizzle-types";
 import { getFiles } from "../supabase/queries";
+import {
+  type File,
+  type Folder,
+  type Workspace,
+} from "../supabase/schema";
 
 export type appFoldersType = Folder & { files: File[] | [] };
 export type appWorkspacesType = Workspace & {
@@ -210,8 +214,8 @@ const appReducer = (
                     ...folder,
                     files: [...folder.files, action.payload.file].sort(
                       (a, b) =>
-                        new Date(a.createdAt).getTime() -
-                        new Date(b.createdAt).getTime(),
+                        new Date(a.createdAt!).getTime() -
+                        new Date(b.createdAt!).getTime(),
                     ),
                   };
                 }
