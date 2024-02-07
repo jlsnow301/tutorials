@@ -181,6 +181,7 @@ export async function createFolder(folder: Folder) {
     return { data: null, error: null };
   } catch (err) {
     console.log(err);
+
     return { data: null, error: "Error" };
   }
 }
@@ -204,6 +205,20 @@ export async function createFile(file: File) {
     return { data: null, error: null };
   } catch (err) {
     console.log(err);
+
     return { data: null, error: "Error" };
   }
 }
+
+export async function updateFile(file: Partial<File>, fileId: string) {
+  try {
+    await db.update(files).set(file).where(eq(files.id, fileId));
+
+    return { data: null, error: null };
+  } catch (err) {
+    console.log(err);
+
+    return { data: null, error: "Error" };
+  }
+}
+

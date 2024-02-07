@@ -65,7 +65,7 @@ export function WorkspaceDropdown(props: Props) {
               {!!privateWorkspaces.length && (
                 <>
                   <p>
-                    <hr></hr>
+                    <hr />
                     {privateWorkspaces.map((option) => (
                       <SelectedWorkspace
                         key={option.id}
@@ -81,7 +81,7 @@ export function WorkspaceDropdown(props: Props) {
               {!!sharedWorkspaces.length && (
                 <>
                   <p>
-                    <hr></hr>
+                    <hr />
                     {sharedWorkspaces.map((option) => (
                       <SelectedWorkspace
                         key={option.id}
@@ -97,7 +97,7 @@ export function WorkspaceDropdown(props: Props) {
               {!!collaboratingWorkspaces.length && (
                 <>
                   <p>
-                    <hr></hr>
+                    <hr />
                     {collaboratingWorkspaces.map((option) => (
                       <SelectedWorkspace
                         key={option.id}

@@ -42,7 +42,9 @@ export function FoldersDropDownList(props: Props) {
       type: "ADD_FOLDER",
       payload: { workspaceId, folder: { ...newFolder, files: [] } },
     });
+
     const { error } = await createFolder(newFolder);
+
     if (error) {
       toast({
         title: "error",
