@@ -13,6 +13,7 @@ import {
 import db from "./db";
 import { addCollaborator, validateUser } from "./helpers";
 import {
+  type File,
   type Folder,
   type Subscription,
   type User,
@@ -44,6 +45,7 @@ export async function getFiles(folderId: string) {
       .from(files)
       .orderBy(files.createdAt)
       .where(eq(files.folderId, folderId))) as File[] | [];
+
     return { data: results, error: null };
   } catch (error) {
     console.log(error);
@@ -54,6 +56,7 @@ export async function getFiles(folderId: string) {
 export async function createWorkspace(workspace: Workspace) {
   try {
     await db.insert(workspaces).values(workspace);
+
     return { data: null, error: null };
   } catch (error) {
     console.log(error);
@@ -75,6 +78,7 @@ export async function getFolders(workspaceId: string) {
       .from(folders)
       .orderBy(folders.createdAt)
       .where(eq(folders.workspaceId, workspaceId));
+
     return { data: results, error: null };
   } catch (error) {
     return { data: null, error: "Error" };
@@ -189,6 +193,17 @@ export async function updateFolder(folder: Partial<Folder>, folderId: string) {
   } catch (err) {
     console.log(err);
 
+    return { data: null, error: "Error" };
+  }
+}
+
+export async function createFile(file: File) {
+  try {
+    await db.insert(files).values(file);
+
+    return { data: null, error: null };
+  } catch (err) {
+    console.log(err);
     return { data: null, error: "Error" };
   }
 }

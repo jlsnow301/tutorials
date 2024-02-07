@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { PlusIcon, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
-  type ChangeEvent,
   type PropsWithChildren,
   type ReactNode,
   useMemo,
@@ -89,7 +88,11 @@ export function Dropdown(props: Props) {
     [isFolder],
   );
 
-  function fileTitleChange(event: ChangeEvent<HTMLInputElement>) {
+  function addNewFile(){
+    
+  }
+
+  function fileTitleChange() {
     if (!workspaceId) return;
 
     const fId = id.split("folder");
@@ -99,7 +102,7 @@ export function Dropdown(props: Props) {
     }
   }
 
-  function folderTitleChange(event: ChangeEvent<HTMLInputElement>) {
+  function folderTitleChange() {
     if (!workspaceId) return;
 
     const fId = id.split("folder");
