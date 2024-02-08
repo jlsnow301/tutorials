@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { validate } from "uuid";
 
 import { collaborators, users, workspaces } from "../../../migrations/schema";
-import db from "../supabase/db";
+import { db } from "../supabase/db";
 import { type Workspace } from "../supabase/schema";
 
 export async function getPrivateWorkspaces(userId: string) {

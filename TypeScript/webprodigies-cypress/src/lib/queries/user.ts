@@ -4,7 +4,7 @@ import { and, eq, ilike } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { collaborators, users, workspaces } from "../../../migrations/schema";
-import db from "../supabase/db";
+import { db } from "../supabase/db";
 import { type Subscription, type User } from "../supabase/schema";
 
 export async function getUserSubscriptionStatus(userId: string) {
@@ -22,10 +22,6 @@ export async function getUserSubscriptionStatus(userId: string) {
   }
 }
 
-export function addCollaborators(users: User[], workspaceId: string) {
-  users.forEach((user) => void addCollaborator(user, workspaceId));
-}
-
 export async function getUsersFromSearch(email: string) {
   if (!email) return;
 
@@ -35,10 +31,6 @@ export async function getUsersFromSearch(email: string) {
     .where(ilike(users.email, `${email}%`));
 
   return accounts as User[];
-}
-
-export function removeCollaborators(users: User[], workspaceId: string) {
-  users.forEach((user) => void removeCollaborator(user, workspaceId));
 }
 
 export async function deleteWorkspace(workspaceId: string) {
@@ -55,6 +47,14 @@ export async function deleteWorkspace(workspaceId: string) {
   }
 }
 
+export function addCollaborators(users: User[], workspaceId: string) {
+  users.forEach((user) => void addCollaborator(user, workspaceId));
+}
+
+export function removeCollaborators(users: User[], workspaceId: string) {
+  users.forEach((user) => void removeCollaborator(user, workspaceId));
+}
+
 async function addCollaborator(user: User, workspaceId: string) {
   const userExists = await db.query.collaborators.findFirst({
     where: (u, { eq }) =>
@@ -62,7 +62,9 @@ async function addCollaborator(user: User, workspaceId: string) {
   });
 
   if (!userExists)
-    await db.insert(collaborators).values({ workspaceId, userId: user.id });
+    return await db
+      .insert(collaborators)
+      .values({ workspaceId, userId: user.id });
 }
 
 async function removeCollaborator(user: User, workspaceId: string) {
@@ -72,7 +74,7 @@ async function removeCollaborator(user: User, workspaceId: string) {
   });
 
   if (userExists)
-    await db
+    return await db
       .delete(collaborators)
       .where(
         and(

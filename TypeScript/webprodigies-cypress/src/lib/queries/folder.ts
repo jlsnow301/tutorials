@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { validate } from "uuid";
 
 import { folders } from "../../../migrations/schema";
-import db from "../supabase/db";
+import { db } from "../supabase/db";
 import { type Folder } from "../supabase/schema";
 
 export async function getFolders(workspaceId: string) {
