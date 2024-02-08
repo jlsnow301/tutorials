@@ -10,7 +10,7 @@ import { v4 } from "uuid";
 import { useAppState } from "@/lib/providers/state-provider";
 import { createWorkspace } from "@/lib/queries/workspace";
 import { type Subscription, type Workspace } from "@/lib/supabase/schema";
-import { type WorkspaceForm } from "@/lib/types";
+import { type WorkspaceForm } from "@/lib/zod";
 
 import { EmojiPicker } from "../global/emoji-picker";
 import { Loader } from "../global/loader";

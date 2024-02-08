@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { actionLoginUser } from "@/lib/server-actions/auth-actions";
-import { type Form as FormType, formSchema } from "@/lib/types";
+import { type Form as FormType, formSchema } from "@/lib/zod";
 
 import Logo from "../../../../public/cypresslogo.svg";
 

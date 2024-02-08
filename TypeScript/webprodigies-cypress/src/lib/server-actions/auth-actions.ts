@@ -3,7 +3,7 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import { type Form } from "../types";
+import { type Form } from "../zod";
 
 export async function actionLoginUser(formData: Form) {
   const { email, password } = formData;
