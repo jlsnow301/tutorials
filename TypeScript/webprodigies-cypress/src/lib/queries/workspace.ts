@@ -5,8 +5,17 @@ import { validate } from "uuid";
 import { collaborators, users, workspaces } from "../../../migrations/schema";
 import { db } from "../supabase/db";
 import { type Workspace } from "../supabase/schema";
+import { apiWrapper } from ".";
 
-export async function getPrivateWorkspaces(userId: string) {
+export const getPrivateWorkspaces = apiWrapper(_getPrivateWorkspaces);
+export const getCollaboratingWorkspaces = apiWrapper(
+  _getCollaboratingWorkspaces,
+);
+export const getSharedWorkspaces = apiWrapper(_getSharedWorkspaces);
+export const createWorkspace = apiWrapper(_createWorkspace);
+export const updateWorkspace = apiWrapper(_updateWorkspace);
+
+async function _getPrivateWorkspaces(userId: string) {
   if (!!userId && validate(userId)) return [];
 
   const privateWorkspaces = await db
@@ -36,7 +45,7 @@ export async function getPrivateWorkspaces(userId: string) {
   return privateWorkspaces as Workspace[];
 }
 
-export async function getCollaboratingWorkspaces(userId: string) {
+async function _getCollaboratingWorkspaces(userId: string) {
   if (!!!userId && validate(userId)) return [];
 
   const collaboratedWorkspaces = await db
@@ -58,7 +67,7 @@ export async function getCollaboratingWorkspaces(userId: string) {
   return collaboratedWorkspaces as Workspace[];
 }
 
-export async function getSharedWorkspaces(userId: string) {
+async function _getSharedWorkspaces(userId: string) {
   if (!!userId && validate(userId)) return [];
 
   const sharedWorkspaces = await db
@@ -80,33 +89,18 @@ export async function getSharedWorkspaces(userId: string) {
   return sharedWorkspaces as Workspace[];
 }
 
-export async function createWorkspace(workspace: Workspace) {
-  try {
-    await db.insert(workspaces).values(workspace);
-
-    return { data: null, error: null };
-  } catch (error) {
-    console.log(error);
-    return { data: null, error: "Error" };
-  }
+async function _createWorkspace(workspace: Workspace) {
+  await db.insert(workspaces).values(workspace);
 }
 
-export async function updateWorkspace(
+async function _updateWorkspace(
   workspace: Partial<Workspace>,
   workspaceId: string,
 ) {
-  try {
-    await db
-      .update(workspaces)
-      .set(workspace)
-      .where(eq(workspaces.id, workspaceId));
+  await db
+    .update(workspaces)
+    .set(workspace)
+    .where(eq(workspaces.id, workspaceId));
 
-    revalidatePath(`/dashboard/${workspaceId}`);
-
-    return { data: null, error: null };
-  } catch (err) {
-    console.log(err);
-
-    return { data: null, error: "Error" };
-  }
+  revalidatePath(`/dashboard/${workspaceId}`);
 }

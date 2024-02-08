@@ -4,48 +4,27 @@ import { validate } from "uuid";
 import { folders } from "../../../migrations/schema";
 import { db } from "../supabase/db";
 import { type Folder } from "../supabase/schema";
+import { apiWrapper } from ".";
 
-export async function getFolders(workspaceId: string) {
+export const getFolders = apiWrapper(_getFolders);
+export const createFolders = apiWrapper(_createFolder);
+export const updateFolders = apiWrapper(_updateFolder);
+
+async function _getFolders(workspaceId: string) {
   const isValid = validate(workspaceId);
-  if (!isValid)
-    return {
-      data: null,
-      error: "Error",
-    };
+  if (!isValid) throw new Error();
 
-  try {
-    const results: Folder[] = await db
-      .select()
-      .from(folders)
-      .orderBy(folders.createdAt)
-      .where(eq(folders.workspaceId, workspaceId));
-
-    return { data: results, error: null };
-  } catch (error) {
-    return { data: null, error: "Error" };
-  }
+  return (await db
+    .select()
+    .from(folders)
+    .orderBy(folders.createdAt)
+    .where(eq(folders.workspaceId, workspaceId))) as Folder[];
 }
 
-export async function createFolder(folder: Folder) {
-  try {
-    await db.insert(folders).values(folder);
-
-    return { data: null, error: null };
-  } catch (err) {
-    console.log(err);
-
-    return { data: null, error: "Error" };
-  }
+async function _createFolder(folder: Folder) {
+  await db.insert(folders).values(folder);
 }
 
-export async function updateFolder(folder: Partial<Folder>, folderId: string) {
-  try {
-    await db.update(folders).set(folder).where(eq(folders.id, folderId));
-
-    return { data: null, error: null };
-  } catch (err) {
-    console.log(err);
-
-    return { data: null, error: "Error" };
-  }
+async function _updateFolder(folder: Partial<Folder>, folderId: string) {
+  await db.update(folders).set(folder).where(eq(folders.id, folderId));
 }

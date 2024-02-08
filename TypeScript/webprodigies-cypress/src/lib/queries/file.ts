@@ -4,45 +4,27 @@ import { validate } from "uuid";
 import { files } from "../../../migrations/schema";
 import { db } from "../supabase/db";
 import { type File } from "../supabase/schema";
+import { apiWrapper } from ".";
 
-export async function getFiles(folderId: string) {
+export const getFiles = apiWrapper(_getFiles);
+export const createFile = apiWrapper(_createFile);
+export const updateFile = apiWrapper(_updateFile);
+
+async function _getFiles(folderId: string) {
   const isValid = validate(folderId);
-  if (!isValid) return { data: null, error: "Error" };
+  if (!isValid) throw new Error();
 
-  try {
-    const results = (await db
-      .select()
-      .from(files)
-      .orderBy(files.createdAt)
-      .where(eq(files.folderId, folderId))) as File[] | [];
-
-    return { data: results, error: null };
-  } catch (error) {
-    console.log(error);
-    return { data: null, error: "Error" };
-  }
+  return (await db
+    .select()
+    .from(files)
+    .orderBy(files.createdAt)
+    .where(eq(files.folderId, folderId))) as File[];
 }
 
-export async function createFile(file: File) {
-  try {
-    await db.insert(files).values(file);
-
-    return { data: null, error: null };
-  } catch (err) {
-    console.log(err);
-
-    return { data: null, error: "Error" };
-  }
+async function _createFile(file: File) {
+  await db.insert(files).values(file);
 }
 
-export async function updateFile(file: Partial<File>, fileId: string) {
-  try {
-    await db.update(files).set(file).where(eq(files.id, fileId));
-
-    return { data: null, error: null };
-  } catch (err) {
-    console.log(err);
-
-    return { data: null, error: "Error" };
-  }
+async function _updateFile(file: Partial<File>, fileId: string) {
+  await db.update(files).set(file).where(eq(files.id, fileId));
 }

@@ -6,23 +6,23 @@ import { revalidatePath } from "next/cache";
 import { collaborators, users, workspaces } from "../../../migrations/schema";
 import { db } from "../supabase/db";
 import { type Subscription, type User } from "../supabase/schema";
+import { apiWrapper } from ".";
 
-export async function getUserSubscriptionStatus(userId: string) {
-  try {
-    const data = await db.query.subscriptions.findFirst({
-      where: (found, { eq }) => eq(found.userId, userId),
-    });
+export const getUserSubscriptionStatus = apiWrapper(_getUserSubscriptionStatus);
+export const getUsersFromSearch = apiWrapper(_getUsersFromSearch);
+export const deleteWorkspace = apiWrapper(_deleteWorkspace);
 
-    if (!data) throw new Error("No Data found");
+async function _getUserSubscriptionStatus(userId: string) {
+  const data = await db.query.subscriptions.findFirst({
+    where: (found, { eq }) => eq(found.userId, userId),
+  });
 
-    return { data: data as Subscription, error: null };
-  } catch (error) {
-    console.log(error);
-    return { data: undefined, error: `Error ${error as string}` };
-  }
+  if (!data) throw new Error("No Data found");
+
+  return data as Subscription;
 }
 
-export async function getUsersFromSearch(email: string) {
+async function _getUsersFromSearch(email: string) {
   if (!email) return;
 
   const accounts = await db
@@ -33,25 +33,17 @@ export async function getUsersFromSearch(email: string) {
   return accounts as User[];
 }
 
-export async function deleteWorkspace(workspaceId: string) {
-  try {
-    await db.delete(workspaces).where(eq(workspaces.id, workspaceId));
+async function _deleteWorkspace(workspaceId: string) {
+  await db.delete(workspaces).where(eq(workspaces.id, workspaceId));
 
-    revalidatePath("/dashboard");
-
-    return { data: null, error: null };
-  } catch (err) {
-    console.log(err);
-
-    return { data: null, error: "Error" };
-  }
+  revalidatePath("/dashboard");
 }
 
-export function addCollaborators(users: User[], workspaceId: string) {
+export async function addCollaborators(users: User[], workspaceId: string) {
   users.forEach((user) => void addCollaborator(user, workspaceId));
 }
 
-export function removeCollaborators(users: User[], workspaceId: string) {
+export async function removeCollaborators(users: User[], workspaceId: string) {
   users.forEach((user) => void removeCollaborator(user, workspaceId));
 }
 
