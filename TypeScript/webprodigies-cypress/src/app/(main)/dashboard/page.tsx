@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { DashboardSetup } from "@/components/dashboard-setup";
+import { getUserSubscriptionStatus } from "@/lib/queries/user";
 import db from "@/lib/supabase/db";
-import { getUserSubscriptionStatus } from "@/lib/supabase/queries";
 
 export default async function DashboardPage() {
   const supabase = createServerComponentClient({ cookies });

@@ -10,7 +10,7 @@ import {
   useReducer,
 } from "react";
 
-import { getFiles } from "../supabase/queries";
+import { getFiles } from "../queries/user";
 import { type File, type Folder, type Workspace } from "../supabase/schema";
 
 export type appFoldersType = Folder & { files: File[] | [] };

@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { getUsersFromSearch } from "@/lib/supabase/queries";
+import { getUsersFromSearch } from "@/lib/queries/user";
 import { type User } from "@/lib/supabase/schema";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";

@@ -6,7 +6,8 @@ import { useState } from "react";
 import { v4 } from "uuid";
 
 import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { addCollaborators, createWorkspace } from "@/lib/supabase/queries";
+import { addCollaborators } from "@/lib/queries/user";
+import { createWorkspace } from "@/lib/queries/workspace";
 import { type User, type Workspace } from "@/lib/supabase/schema";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -67,7 +68,7 @@ export function WorkspaceCreator() {
       router.refresh();
     } else if (permissions === "shared") {
       await createWorkspace(newWorkspace);
-      await addCollaborators(collaborators, uuid);
+      addCollaborators(collaborators, uuid);
       toast({ title: "Success", description: "Created shared workspace" });
       router.refresh();
     }

@@ -14,8 +14,8 @@ import {
   addCollaborators,
   deleteWorkspace,
   removeCollaborators,
-  updateWorkspace,
-} from "@/lib/supabase/queries";
+} from "@/lib/queries/user";
+import { updateWorkspace } from "@/lib/queries/workspace";
 import { type User, type Workspace } from "@/lib/supabase/schema";
 
 import { CollaboratorSearch } from "../global/collaborator-search";
@@ -53,7 +53,7 @@ export function SettingsForm() {
   async function addCollaborator(user: User) {
     if (!workspaceId) return;
 
-    await addCollaborators(collaborators, workspaceId);
+    addCollaborators(collaborators, workspaceId);
     setCollaborators([...collaborators, user]);
 
     router.refresh();
@@ -94,7 +94,7 @@ export function SettingsForm() {
       setPermissions("Private");
     }
 
-    await removeCollaborators([user], workspaceId);
+    removeCollaborators([user], workspaceId);
     setCollaborators(collaborators.filter((c) => c.id !== user.id));
   }
 

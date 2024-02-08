@@ -15,7 +15,8 @@ import { v4 } from "uuid";
 
 import { useAppState } from "@/lib/providers/state-provider";
 import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { createFile, updateFile, updateFolder } from "@/lib/supabase/queries";
+import { createFile, updateFile } from "@/lib/queries/file";
+import { updateFolder } from "@/lib/queries/folder";
 import { type File } from "@/lib/supabase/schema";
 
 import { EmojiPicker } from "../global/emoji-picker";

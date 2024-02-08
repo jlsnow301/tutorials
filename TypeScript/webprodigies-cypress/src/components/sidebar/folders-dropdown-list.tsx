@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 
 import { useAppState } from "@/lib/providers/state-provider";
-import { createFolder } from "@/lib/supabase/queries";
+import { createFolder } from "@/lib/queries/folder";
 import { type Folder } from "@/lib/supabase/schema";
 
 import { TooltipWrapper } from "../global/tooltip-wrapper";

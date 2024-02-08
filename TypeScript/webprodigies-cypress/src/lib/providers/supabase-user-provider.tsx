@@ -12,7 +12,7 @@ import {
 
 import { toast } from "@/components/ui/use-toast";
 
-import { getUserSubscriptionStatus } from "../supabase/queries";
+import { getUserSubscriptionStatus } from "../queries/user";
 import { type Subscription } from "../supabase/schema";
 
 type ContextType = {

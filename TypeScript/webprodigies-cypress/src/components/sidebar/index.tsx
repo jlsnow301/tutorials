@@ -3,13 +3,13 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
+import { getFolders } from "@/lib/queries/folder";
+import { getUserSubscriptionStatus } from "@/lib/queries/user";
 import {
   getCollaboratingWorkspaces,
-  getFolders,
   getPrivateWorkspaces,
   getSharedWorkspaces,
-  getUserSubscriptionStatus,
-} from "@/lib/supabase/queries";
+} from "@/lib/queries/workspace";
 
 import { ScrollArea } from "../ui/scroll-area";
 import { FoldersDropDownList } from "./folders-dropdown-list";

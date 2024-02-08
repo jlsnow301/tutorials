@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { v4 } from "uuid";
 
 import { useAppState } from "@/lib/providers/state-provider";
-import { createWorkspace } from "@/lib/supabase/queries";
+import { createWorkspace } from "@/lib/queries/workspace";
 import { type Subscription, type Workspace } from "@/lib/supabase/schema";
 import { type WorkspaceForm } from "@/lib/types";
 
