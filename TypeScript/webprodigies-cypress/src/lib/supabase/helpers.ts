@@ -1,4 +1,4 @@
-import { and } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { validate } from "uuid";
 
 import { collaborators } from "../../../migrations/schema";
@@ -20,4 +20,21 @@ export async function addCollaborator(user: User, workspaceId: string) {
 
   if (!userExists)
     await db.insert(collaborators).values({ workspaceId, userId: user.id });
+}
+
+export async function removeCollaborator(user: User, workspaceId: string) {
+  const userExists = await db.query.collaborators.findFirst({
+    where: (u, { eq }) =>
+      and(eq(u.userId, user.id), eq(u.workspaceId, workspaceId)),
+  });
+
+  if (userExists)
+    await db
+      .delete(collaborators)
+      .where(
+        and(
+          eq(collaborators.workspaceId, workspaceId),
+          eq(collaborators.userId, user.id),
+        ),
+      );
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import { and, eq, ilike, notExists } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { validate } from "uuid";
 
 import {
@@ -11,7 +12,7 @@ import {
   workspaces,
 } from "../../../migrations/schema";
 import db from "./db";
-import { addCollaborator, validateUser } from "./helpers";
+import { addCollaborator, removeCollaborator, validateUser } from "./helpers";
 import {
   type File,
   type Folder,
@@ -222,3 +223,40 @@ export async function updateFile(file: Partial<File>, fileId: string) {
   }
 }
 
+export async function updateWorkspace(
+  workspace: Partial<Workspace>,
+  workspaceId: string,
+) {
+  try {
+    await db
+      .update(workspaces)
+      .set(workspace)
+      .where(eq(workspaces.id, workspaceId));
+
+    revalidatePath(`/dashboard/${workspaceId}`);
+
+    return { data: null, error: null };
+  } catch (err) {
+    console.log(err);
+
+    return { data: null, error: "Error" };
+  }
+}
+
+export async function removeCollaborators(users: User[], workspaceId: string) {
+  users.forEach((user) => void removeCollaborator(user, workspaceId));
+}
+
+export async function deleteWorkspace(workspaceId: string) {
+  try {
+    await db.delete(workspaces).where(eq(workspaces.id, workspaceId));
+
+    revalidatePath("/dashboard");
+
+    return { data: null, error: null };
+  } catch (err) {
+    console.log(err);
+
+    return { data: null, error: "Error" };
+  }
+}

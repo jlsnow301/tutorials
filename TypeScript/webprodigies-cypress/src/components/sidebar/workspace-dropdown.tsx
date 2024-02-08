@@ -47,6 +47,14 @@ export function WorkspaceDropdown(props: Props) {
     setIsOpen(false);
   }
 
+  useEffect(() => {
+    const findSelectedWorkspace = state.workspaces.find(
+      (workspace) => workspace.id === defaultValue?.id,
+    );
+
+    if (findSelectedWorkspace) setSelectedOption(findSelectedWorkspace);
+  }, []);
+
   return (
     <div className="relative inline-block text-left">
       <div>
