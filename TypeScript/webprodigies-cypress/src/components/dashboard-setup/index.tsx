@@ -27,7 +27,7 @@ import { Label } from "../ui/label";
 import { useToast } from "../ui/use-toast";
 
 type Props = {
-  subscription: Subscription | undefined;
+  subscription: Subscription | null;
   user: AuthUser;
 };
 

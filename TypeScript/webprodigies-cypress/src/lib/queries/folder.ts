@@ -7,12 +7,12 @@ import { type Folder } from "../supabase/schema";
 import { apiWrapper } from ".";
 
 export const getFolders = apiWrapper(_getFolders);
-export const createFolders = apiWrapper(_createFolder);
-export const updateFolders = apiWrapper(_updateFolder);
+export const createFolder = apiWrapper(_createFolder);
+export const updateFolder = apiWrapper(_updateFolder);
+export const deleteFolder = apiWrapper(_deleteFolder);
 
 async function _getFolders(workspaceId: string) {
-  const isValid = validate(workspaceId);
-  if (!isValid) throw new Error();
+  if (!validate(workspaceId)) throw new Error();
 
   return (await db
     .select()
@@ -27,4 +27,10 @@ async function _createFolder(folder: Folder) {
 
 async function _updateFolder(folder: Partial<Folder>, folderId: string) {
   await db.update(folders).set(folder).where(eq(folders.id, folderId));
+}
+
+async function _deleteFolder(folderId: string) {
+  if (!validate(folderId)) throw new Error();
+
+  await db.delete(folders).where(eq(folders.id, folderId));
 }

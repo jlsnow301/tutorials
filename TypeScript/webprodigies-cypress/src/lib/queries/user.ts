@@ -2,6 +2,7 @@
 
 import { and, eq, ilike } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { validate } from "uuid";
 
 import { collaborators, users, workspaces } from "../../../migrations/schema";
 import { db } from "../supabase/db";
@@ -13,6 +14,8 @@ export const getUsersFromSearch = apiWrapper(_getUsersFromSearch);
 export const deleteWorkspace = apiWrapper(_deleteWorkspace);
 
 async function _getUserSubscriptionStatus(userId: string) {
+  if (!userId || !validate(userId)) throw new Error();
+
   const data = await db.query.subscriptions.findFirst({
     where: (found, { eq }) => eq(found.userId, userId),
   });

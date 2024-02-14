@@ -9,10 +9,10 @@ import { apiWrapper } from ".";
 export const getFiles = apiWrapper(_getFiles);
 export const createFile = apiWrapper(_createFile);
 export const updateFile = apiWrapper(_updateFile);
+export const deleteFile = apiWrapper(_deleteFile);
 
 async function _getFiles(folderId: string) {
-  const isValid = validate(folderId);
-  if (!isValid) throw new Error();
+  if (!folderId || !validate(folderId)) throw new Error();
 
   return (await db
     .select()
@@ -26,5 +26,13 @@ async function _createFile(file: File) {
 }
 
 async function _updateFile(file: Partial<File>, fileId: string) {
+  if (!validate(fileId)) throw new Error();
+
   await db.update(files).set(file).where(eq(files.id, fileId));
+}
+
+async function _deleteFile(fileId: string) {
+  if (!validate(fileId)) throw new Error();
+
+  await db.delete(files).where(eq(files.id, fileId));
 }

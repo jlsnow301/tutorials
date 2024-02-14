@@ -14,9 +14,22 @@ export const getCollaboratingWorkspaces = apiWrapper(
 export const getSharedWorkspaces = apiWrapper(_getSharedWorkspaces);
 export const createWorkspace = apiWrapper(_createWorkspace);
 export const updateWorkspace = apiWrapper(_updateWorkspace);
+export const getWorkspaceDetails = apiWrapper(_getWorkspaceDetails);
+
+async function _getWorkspaceDetails(workspaceId: string) {
+  if (!validate(workspaceId)) throw new Error();
+
+  const workspace = await db
+    .select()
+    .from(workspaces)
+    .where(eq(workspaces.id, workspaceId))
+    .limit(1);
+
+  return workspace;
+}
 
 async function _getPrivateWorkspaces(userId: string) {
-  if (!!userId && validate(userId)) return [];
+  if (!validate(userId)) throw new Error();
 
   const privateWorkspaces = await db
     .select({
@@ -42,11 +55,11 @@ async function _getPrivateWorkspaces(userId: string) {
       ),
     );
 
-  return privateWorkspaces as Workspace[];
+  return privateWorkspaces;
 }
 
 async function _getCollaboratingWorkspaces(userId: string) {
-  if (!!!userId && validate(userId)) return [];
+  if (!validate(userId)) throw new Error();
 
   const collaboratedWorkspaces = await db
     .select({
@@ -64,11 +77,11 @@ async function _getCollaboratingWorkspaces(userId: string) {
     .innerJoin(workspaces, eq(collaborators.workspaceId, workspaces.id))
     .where(eq(users.id, userId));
 
-  return collaboratedWorkspaces as Workspace[];
+  return collaboratedWorkspaces;
 }
 
 async function _getSharedWorkspaces(userId: string) {
-  if (!!userId && validate(userId)) return [];
+  if (!validate(userId)) throw new Error();
 
   const sharedWorkspaces = await db
     .select({
@@ -86,7 +99,7 @@ async function _getSharedWorkspaces(userId: string) {
     .innerJoin(collaborators, eq(workspaces.id, collaborators.userId))
     .where(eq(workspaces.workspaceOwner, userId));
 
-  return sharedWorkspaces as Workspace[];
+  return sharedWorkspaces;
 }
 
 async function _createWorkspace(workspace: Workspace) {
@@ -97,6 +110,8 @@ async function _updateWorkspace(
   workspace: Partial<Workspace>,
   workspaceId: string,
 ) {
+  if (!validate(workspaceId)) throw new Error();
+
   await db
     .update(workspaces)
     .set(workspace)
