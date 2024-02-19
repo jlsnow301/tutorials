@@ -7,6 +7,7 @@ import { type Folder } from "../supabase/schema";
 import { apiWrapper } from ".";
 
 export const getFolders = apiWrapper(_getFolders);
+export const getFolderDetails = apiWrapper(_getFolderDetails);
 export const createFolder = apiWrapper(_createFolder);
 export const updateFolder = apiWrapper(_updateFolder);
 export const deleteFolder = apiWrapper(_deleteFolder);
@@ -19,6 +20,16 @@ async function _getFolders(workspaceId: string) {
     .from(folders)
     .orderBy(folders.createdAt)
     .where(eq(folders.workspaceId, workspaceId))) as Folder[];
+}
+
+async function _getFolderDetails(folderId: string) {
+  if (!validate(folderId)) throw new Error();
+
+  return (await db
+    .select()
+    .from(folders)
+    .where(eq(folders.id, folderId))
+    .limit(1)) as Folder[];
 }
 
 async function _createFolder(folder: Folder) {

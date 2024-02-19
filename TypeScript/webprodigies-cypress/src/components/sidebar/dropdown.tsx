@@ -318,9 +318,15 @@ export function Dropdown(props: Props) {
   }
 
   function navigatePage(accordionId: string, type: string) {
-    const prefix = type === "file" ? `${folderId}/` : "";
+    if (isFolder) {
+      router.push(`/dashboard/${workspaceId}/${accordionId}`);
+    }
 
-    router.push(`/dashboard/${workspaceId}/${prefix + accordionId}`);
+    if (type === "file") {
+      router.push(
+        `/dashboard/${workspaceId}/${folderId}/${accordionId.split("folder")[1]}`,
+      );
+    }
   }
 
   return (

@@ -7,18 +7,29 @@ import { type File } from "../supabase/schema";
 import { apiWrapper } from ".";
 
 export const getFiles = apiWrapper(_getFiles);
+export const getFileDetails = apiWrapper(_getFileDetails);
 export const createFile = apiWrapper(_createFile);
 export const updateFile = apiWrapper(_updateFile);
 export const deleteFile = apiWrapper(_deleteFile);
 
 async function _getFiles(folderId: string) {
-  if (!folderId || !validate(folderId)) throw new Error();
+  if (!validate(folderId)) throw new Error();
 
   return (await db
     .select()
     .from(files)
     .orderBy(files.createdAt)
     .where(eq(files.folderId, folderId))) as File[];
+}
+
+async function _getFileDetails(fileId: string) {
+  if (!validate(fileId)) throw new Error();
+
+  return (await db
+    .select()
+    .from(files)
+    .where(eq(files.id, fileId))
+    .limit(1)) as File[];
 }
 
 async function _createFile(file: File) {
