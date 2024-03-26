@@ -28,7 +28,7 @@ func main() {
 }
 
 func getUserChoice() (string, error) {
-	fmt.Println("Please enter your choice")	
+	fmt.Println("Please enter your choice")
 	fmt.Println("1) Add up all numbers to the number X")
 	fmt.Println("2) Build the factorial to the number X")
 	fmt.Println("3) Sum up manually entered numbers")
@@ -39,14 +39,15 @@ func getUserChoice() (string, error) {
 	}
 	fmt.Print("Enter your number")
 	userInput = strings.Replace(userInput, "\r\n", "", -2)
-	if userInput == "1" || 
-	userInput == "2" || 
-	userInput == "3" || 
-	userInput == "4" {
+	if userInput == "1" ||
+		userInput == "2" ||
+		userInput == "3" ||
+		userInput == "4" {
 		return userInput, nil
 	} else {
 		return "", errors.New("invalid input")
 	}
+
 }
 
 func getInputNumber() (int, error) {
@@ -56,7 +57,7 @@ func getInputNumber() (int, error) {
 	}
 	inputNumber = strings.Replace(inputNumber, "\r\n", "", -2)
 	chosenNumber, error := strconv.ParseInt(inputNumber, 0, 64)
-	if error != nil {		
+	if error != nil {
 		return 0, error
 	}
 	return int(chosenNumber), nil
@@ -82,7 +83,7 @@ func getInputNumberList() {
 	fmt.Printf("Result: %v\n", sum)
 }
 
-func calculateSumUpToNumber()  {
+func calculateSumUpToNumber() {
 	fmt.Print("Please enter your number")
 	chosenNumber, error := getInputNumber()
 	if error != nil {
@@ -117,7 +118,7 @@ func calculateSumManually() {
 	sum := 0
 	fmt.Println("Enter your numbers.\nAny non integers will exit.")
 	for addingNumbers {
-		
+
 		chosenNumber, error := getInputNumber()
 		sum += chosenNumber
 
@@ -129,4 +130,3 @@ func calculateSumManually() {
 func calculateListSum() {
 
 }
-

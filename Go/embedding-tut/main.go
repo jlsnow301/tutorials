@@ -31,8 +31,8 @@ type user struct {
 
 func newUser(first string, last string) *user {
 	return &user{
-		firstName: first,
-		lastName:  last,
+		firstName:     first,
+		lastName:      last,
 		userInputData: &userInputData{},
 	}
 }
@@ -58,7 +58,6 @@ func (usr *userInputData) PromptForInput() {
 
 func (usr *userInputData) Store(fileName string) {
 	file, err := os.Create(fileName)
-
 	if err != nil {
 		fmt.Println("Creating the file failed!")
 		return
@@ -66,7 +65,11 @@ func (usr *userInputData) Store(fileName string) {
 
 	defer file.Close() // might want to wrap into anonymous fn for error handling
 
-	file.WriteString(usr.input)
+	_, err = file.WriteString(usr.input)
+	if err != nil {
+		fmt.Println("Writing to file failed!")
+		return
+	}
 }
 
 func main() {
