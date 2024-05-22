@@ -14,6 +14,7 @@ import { deleteFolder, updateFolder } from "@/lib/queries/folder";
 import { updateWorkspace } from "@/lib/queries/workspace";
 import { type File, type Folder, type Workspace } from "@/lib/supabase/schema";
 
+import { BannerUpload } from "../banner-upload";
 import { EmojiPicker } from "../global/emoji-picker";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
@@ -310,6 +311,9 @@ export function QuillEditor(props: Props) {
                 {details.iconId}
               </div>
             </EmojiPicker>
+          </div>
+          <div className="flex">
+            <BannerUpload className="mt-2 text-sm text-muted-foreground p-2 hover:text-card-foreground transition-all rounded-md" details={details} dirType={dirType} id={fileId} >{details.bannerUrl ? "Update Banner" : "Add Banner"}</BannerUpload>
           </div>
         </div>
         <div className="max-w-[800px]" id="container" ref={wrapperRef} />

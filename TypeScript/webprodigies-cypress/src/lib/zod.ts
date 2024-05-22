@@ -16,3 +16,9 @@ export const workspaceFormSchema = z.object({
 });
 
 export type WorkspaceForm = z.infer<typeof workspaceFormSchema>;
+
+export const bannerFormSchema = z.object({
+  banner: z.string().describe("Banner Image"),
+});
+
+export type BannerForm = z.infer<typeof bannerFormSchema>;
