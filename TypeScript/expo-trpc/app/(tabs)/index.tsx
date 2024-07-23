@@ -6,16 +6,18 @@ import { api } from "@/utils/api";
 import EditScreenInfo from "@/components/EditScreenText";
 
 export default function HomeScreen() {
-  const { status, data, isLoading, error, isError } = api.hello.useQuery({
-    text: "the server",
-  });
+  const { status, data, isLoading, error, isError } = api.posts.byUser.useQuery(
+    {
+      user: 1,
+    }
+  );
 
   return (
     <View style={styles.container}>
       {isLoading && <Text style={styles.title}>Loading ...</Text>}
       {isError && <Text style={styles.title}>Error: {error.message}</Text>}
       {status === "success" && (
-        <Text style={styles.title}>{data.greeting}</Text>
+        <Text style={styles.title}>{data.postsQuery[0].content}</Text>
       )}
 
       <View
