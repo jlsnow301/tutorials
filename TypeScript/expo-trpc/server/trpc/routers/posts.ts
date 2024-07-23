@@ -4,28 +4,25 @@ import { db } from "@/db";
 import { eq } from "drizzle-orm";
 import { posts } from "@/db/schema";
 
-const byUser = publicProcedure
-  .input(
-    z.object({
-      user: z.number(),
-    })
-  )
-  .query((opts) => {
-    /// Sql way
-    const postsSQL = db
-      .select()
-      .from(posts)
-      .where(eq(posts.authorId, opts.input.user));
+// Sql way - self documenting also
+const byUser = publicProcedure.input(z.number()).query((opts) => {
+  const postsSQL = db
+    .select()
+    .from(posts)
+    .where(eq(posts.authorId, opts.input));
 
-    /// Query way
-    const postsQuery = db.query.posts.findMany({
-      where: (posts) => eq(posts.reviewerId, opts.input.user),
-    });
+  return postsSQL;
+});
 
-    return postsQuery;
-  });
+// Query way - shortened
+const byPostId = publicProcedure.input(z.number()).query((opts) =>
+  db.query.posts.findFirst({
+    where: (posts) => eq(posts.id, opts.input),
+  })
+);
 
 /** All user posts */
 export const postsRouter = router({
   byUser,
+  byPostId,
 });

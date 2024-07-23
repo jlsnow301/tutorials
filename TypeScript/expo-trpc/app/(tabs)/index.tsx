@@ -6,19 +6,18 @@ import { api } from "@/utils/api";
 import EditScreenInfo from "@/components/EditScreenText";
 
 export default function HomeScreen() {
-  const { status, data, isLoading, error, isError } = api.posts.byUser.useQuery(
-    {
-      user: 1,
-    }
-  );
-
-  const firstPost = data?.[0]?.content || "Nothing here!";
+  const { data: postData, isLoading, error } = api.posts.byPostId.useQuery(1);
 
   return (
-    <View style={styles.container}>
-      {isLoading && <Text style={styles.title}>Loading ...</Text>}
-      {isError && <Text style={styles.title}>Error: {error.message}</Text>}
-      {status === "success" && <Text style={styles.title}>{firstPost}</Text>}
+    <View>
+      {isLoading && <Text>Loading ...</Text>}
+      {!!error && <Text>Error: {error.message}</Text>}
+      {postData && (
+        <View>
+          <Text>Author: {postData.authorId}</Text>
+          <Text>Content: {postData.content}</Text>
+        </View>
+      )}
 
       <View
         style={styles.separator}
