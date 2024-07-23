@@ -12,13 +12,13 @@ export default function HomeScreen() {
     }
   );
 
+  const firstPost = data?.[0]?.content || "Nothing here!";
+
   return (
     <View style={styles.container}>
       {isLoading && <Text style={styles.title}>Loading ...</Text>}
       {isError && <Text style={styles.title}>Error: {error.message}</Text>}
-      {status === "success" && (
-        <Text style={styles.title}>{data.postsQuery[0].content}</Text>
-      )}
+      {status === "success" && <Text style={styles.title}>{firstPost}</Text>}
 
       <View
         style={styles.separator}
